@@ -1,0 +1,13 @@
+.title {
+  font-size: 2em;
+  margin: 50px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0;
+  padding: 20px;
+}

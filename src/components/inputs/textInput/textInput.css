@@ -1,0 +1,31 @@
+.textInput {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 0 0.5rem;
+}
+
+.textInputBox {
+  background-color: #a0a0a0;
+
+  border-radius: 5px;
+  padding: 0.4rem;
+}
+
+.textInputBox input {
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #ffffff;
+  text-align: start;
+  width: 15rem;
+}
+
+.textInputBox input::placeholder {
+  color: #ffffff9a;
+}
+
+.textInputBox input:focus {
+  outline: none;
+}

@@ -15,32 +15,17 @@ const Dashboard = () => {
         <CardButton
           title="Importar Matrices"
           description="Carga de archivos XSLX de cada categoría"
-          onClick={() => navigate("/import")}
+          onClick={() => navigate("/stages")}
         />
         <CardButton
-          title="Importar Matrices"
-          description="Carga de archivos XSLX de cada categoría"
-          onClick={() => navigate("/import")}
+          title="Ver Matrices"
+          description="Visualización de matrices cargadas"
+          onClick={() => navigate("/stages")}
         />
         <CardButton
-          title="Importar Matrices"
-          description="Carga de archivos XSLX de cada categoría"
-          onClick={() => navigate("/import")}
-        />
-        <CardButton
-          title="Importar Matrices"
-          description="Carga de archivos XSLX de cada categoría"
-          onClick={() => navigate("/import")}
-        />
-        <CardButton
-          title="Importar Matrices"
-          description="Carga de archivos XSLX de cada categoría"
-          onClick={() => navigate("/import")}
-        />
-        <CardButton
-          title="Importar Matrices"
-          description="Carga de archivos XSLX de cada categoría"
-          onClick={() => navigate("/import")}
+          title="Evaluar Corredores"
+          description="Evaluación de corredores"
+          onClick={() => navigate("/drivers")}
         />
       </div>
     </div>

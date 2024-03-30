@@ -13,18 +13,13 @@ const Dashboard = () => {
       </div>
       <div className="options">
         <CardButton
-          title="Importar Matrices"
-          description="Carga de archivos XLSX de cada categoría"
+          title="Gestión de Etapas"
+          description="Gestionar las etapas de la competencia, como importar y editar las matrices de las etapas"
           onClick={() => navigate("/stages")}
         />
         <CardButton
-          title="Ver Matrices"
-          description="Visualización de matrices cargadas"
-          onClick={() => navigate("/stages")}
-        />
-        <CardButton
-          title="Evaluar Corredores"
-          description="Evaluación de corredores"
+          title="Gestión Corredores"
+          description="Gestionar los corredores de la competencia, como importar y editar los corredores"
           onClick={() => navigate("/drivers")}
         />
       </div>

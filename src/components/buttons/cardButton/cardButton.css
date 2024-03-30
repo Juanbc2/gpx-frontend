@@ -1,11 +1,8 @@
-h2 {
-}
-
 h4 {
   font-weight: lighter;
 }
 
-button {
+.cardButton {
   background-color: transparent;
   border: 3px solid #2f2504;
   border-radius: 10px;
@@ -13,7 +10,7 @@ button {
   margin: 10px;
   width: 250px;
 }
-button:hover {
+.cardButton:hover {
   background-color: #575538;
   color: white;
 }

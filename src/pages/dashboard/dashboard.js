@@ -14,7 +14,7 @@ const Dashboard = () => {
       <div className="options">
         <CardButton
           title="Importar Matrices"
-          description="Carga de archivos XSLX de cada categoría"
+          description="Carga de archivos XLSX de cada categoría"
           onClick={() => navigate("/stages")}
         />
         <CardButton

@@ -1,0 +1,30 @@
+.infotable {
+  display: flex;
+  flex-direction: column;
+
+  width: fit-content;
+  margin: 0 0.5rem;
+}
+
+.tableBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.tableBox table {
+  background-color: #a5ae9e;
+  color: white;
+}
+
+.infoTable thead {
+  background-color: #7e846b;
+}
+
+.tableBox table th,
+.tableBox table td {
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 0.3rem;
+}

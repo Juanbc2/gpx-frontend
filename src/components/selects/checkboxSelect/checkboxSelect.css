@@ -1,0 +1,55 @@
+.checkboxSelect {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 0 0.5rem;
+  user-select: none;
+}
+
+.listBox {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  background-color: #a5ae9e;
+  border-radius: 5px;
+  padding: 5px 20px 7px 5px;
+  color: #ffffff;
+  gap: 10px;
+  z-index: 2;
+}
+
+.checkboxOptions {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin-top: 3em;
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.checkboxOptions label:first-child {
+  padding-top: 10px;
+}
+
+.checkboxOptions label:last-child {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.checkboxOptions label {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #575538;
+  padding: 0px 10px 5px 10px;
+}
+
+.arrowDown {
+  position: relative;
+  top: 0.15rem;
+  background-color: #7e846b;
+  padding: 0.1rem 0.3rem;
+  border-radius: 5px;
+  width: fit-content;
+}

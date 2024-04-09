@@ -1,7 +1,6 @@
 .simpleSelect {
   display: flex;
   flex-direction: column;
-
   width: fit-content;
   margin: 0 0.5rem;
 }
@@ -41,6 +40,7 @@
   background-color: #7e846b;
   padding: 0.1rem 0.3rem;
   border-radius: 5px;
+  width: fit-content;
 }
 
 .inputLabel {

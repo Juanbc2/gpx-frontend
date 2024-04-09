@@ -1,13 +1,13 @@
 import React from "react";
 import "./importStages.css";
 import FileInput from "../../../components/inputs/fileInput/fileInput";
-import SimpleSelect from "../../../components/selects/simpleSelect/simpleSelect";
 import TextInput from "../../../components/inputs/textInput/textInput";
 import InfoTable from "../../../components/tables/infoTable/infoTable";
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { read, utils } from "xlsx";
 import { notify } from "../../../utils/toastify";
 import { categories } from "../../../services/data/data";
+import CheckboxSelect from "../../../components/selects/checkboxSelect/checkboxSelect";
 
 const ImportStages = () => {
   const handleImport = () => {
@@ -16,7 +16,7 @@ const ImportStages = () => {
       notify("warning", "Cargue una matriz.");
       return (readyToImport = false);
     }
-    if (!selectedCategory) {
+    if (!selectedCategories) {
       notify("warning", "Seleccione una categoría.");
       return (readyToImport = false);
     }
@@ -29,7 +29,7 @@ const ImportStages = () => {
 
   const resetConstants = () => {
     setLoadedMatrix([]);
-    setSelectedCategory(null);
+    setSelectedCategories(null);
   };
 
   const [loadedMatrix, setLoadedMatrix] = React.useState([]);
@@ -76,7 +76,12 @@ const ImportStages = () => {
     return products;
   };
 
-  const [selectedCategory, setSelectedCategory] = React.useState(null);
+  const [selectedCategories, setSelectedCategories] = React.useState(null);
+  
+  const handleSelectedCategories = (values) => {
+    console.log(values);
+    setSelectedCategories(values);
+  };
 
   return (
     <div>
@@ -90,12 +95,12 @@ const ImportStages = () => {
         />
       </div>
       <div className="content">
-        <SimpleSelect
+        <CheckboxSelect
           title="Categoría"
-          defaultOptionText="Seleccione una categoría..."
+          defaultOptionText="Seleccione una(s) categoría(s)..."
           options={categories}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          value={selectedCategory}
+          onChange={handleSelectedCategories}
+          value={selectedCategories}
         />
         <TextInput title="Detalles" />
       </div>

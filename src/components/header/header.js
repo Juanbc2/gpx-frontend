@@ -13,6 +13,9 @@ const Header = () => {
       <div>
         <ul className="menu">
           <li>
+            <a href="/events">Eventos</a>
+          </li>
+          <li>
             <a href="/stages">Etapas</a>
           </li>
           <li>

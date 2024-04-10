@@ -6,7 +6,7 @@ import InfoTable from "../../../components/tables/infoTable/infoTable";
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { read, utils } from "xlsx";
 import { notify } from "../../../utils/toastify";
-import { categories } from "../../../services/data/data";
+import { categories } from "../../../services/data/frontInfo";
 import CheckboxSelect from "../../../components/selects/checkboxSelect/checkboxSelect";
 
 const ImportStages = () => {
@@ -77,9 +77,8 @@ const ImportStages = () => {
   };
 
   const [selectedCategories, setSelectedCategories] = React.useState(null);
-  
+
   const handleSelectedCategories = (values) => {
-    console.log(values);
     setSelectedCategories(values);
   };
 
@@ -102,7 +101,7 @@ const ImportStages = () => {
           onChange={handleSelectedCategories}
           value={selectedCategories}
         />
-        <TextInput title="Detalles" />
+        <TextInput title="Detalles" placeholder="Detalles del evento" />
       </div>
       <div className="content">
         <InfoTable

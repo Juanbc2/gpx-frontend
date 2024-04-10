@@ -1,12 +1,17 @@
 import React from "react";
 import "./textInput.css";
 
-const TextInput = ({ title }) => {
+const TextInput = ({ title, placeholder, onChange, value }) => {
   return (
     <div className="textInput">
       <span className="inputLabel">{title}</span>
       <div className="textInputBox">
-        <input placeholder="Detalles de la etapa..." type="text" />
+        <input
+          placeholder={placeholder}
+          type="text"
+          value={value}
+          onChange={onChange}
+        />
       </div>
     </div>
   );

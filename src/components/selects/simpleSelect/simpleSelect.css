@@ -7,7 +7,7 @@
 
 .selectBox {
   width: fit-content;
-  background-color: #a5ae9e;
+  background-color: #ff5229;
   border-radius: 5px;
   padding: 0 5px;
 }
@@ -26,7 +26,7 @@
 }
 
 .selectBox select option {
-  background-color: #a5ae9e;
+  background-color: #ff5229;
   color: #ffffff;
 }
 
@@ -37,7 +37,7 @@
 .arrowDown {
   position: relative;
   top: 0.15rem;
-  background-color: #7e846b;
+  background-color: #e93e23;
   padding: 0.1rem 0.3rem;
   border-radius: 5px;
   width: fit-content;
@@ -47,4 +47,5 @@
   float: left;
   width: fit-content;
   margin: 0.5rem 0;
+  font-weight: bold;
 }

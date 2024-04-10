@@ -1,5 +1,5 @@
 .fileInput {
-  background-color: #a5ae9e;
+  background-color: #ff5229;
   color: white;
   padding: 10px 40px 14px 10px;
   border-radius: 5px;
@@ -7,7 +7,7 @@
   margin: auto;
 }
 .customFileUpload {
-  background-color: #7e846b;
+  background-color: #e93e23;
   color: white;
   padding: 5px 20px;
   border: none;
@@ -19,7 +19,7 @@
 }
 
 .customFileUpload:hover {
-  background-color: #575538;
+  background-color: #d3291c;
 }
 
 .fileText {

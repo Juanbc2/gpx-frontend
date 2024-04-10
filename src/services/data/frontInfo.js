@@ -5,5 +5,6 @@ export const categories = [
   { value: 4, text: "Motos Darien Heavy" },
   { value: 5, text: "Motos Darien Maxitrail" },
   { value: 6, text: "Motos Darien Pro" },
-  { value: 7, text: "UTV" },
+  { value: 7, text: "Motos Darien Novatos"},
+  { value: 8, text: "UTV" },
 ];

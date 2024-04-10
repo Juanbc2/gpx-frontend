@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: row;
   width: fit-content;
-  background-color: #a5ae9e;
+  background-color: #ff5229;
   border-radius: 5px;
   padding: 5px 20px 7px 5px;
   color: #ffffff;
@@ -18,11 +18,18 @@
   z-index: 2;
 }
 
+.listBox label {
+  cursor: pointer;
+}
+
+.listBox:hover {
+  cursor: pointer;
+}
 .checkboxOptions {
   display: flex;
   flex-direction: column;
   position: absolute;
-  margin-top: 3em;
+  margin-top: 4.4em;
   border-radius: 15px;
   z-index: 1;
 }
@@ -41,15 +48,73 @@
   align-items: center;
   color: #ffffff;
   cursor: pointer;
-  background-color: #575538;
+  background-color: #d3291c;
   padding: 0px 10px 5px 10px;
+  gap: 10px;
 }
 
 .arrowDown {
   position: relative;
   top: 0.15rem;
-  background-color: #7e846b;
+  background-color: #e93e23;
   padding: 0.1rem 0.3rem;
   border-radius: 5px;
   width: fit-content;
+}
+
+.inputLabel {
+  float: left;
+  width: fit-content;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+.checkboxOptions input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  /* Remove most all native input styles */
+  appearance: none;
+  /* For iOS < 15 */
+  background-color: var(--form-background);
+  /* Not removed via appearance */
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+}
+
+.checkboxOptions input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em white;
+  /* Windows High Contrast Mode */
+  background-color: CanvasText;
+}
+
+.checkboxOptions input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.checkboxOptions input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+
+.checkboxOptions input[type="checkbox"]:disabled {
+  --form-control-color: var(--form-control-disabled);
+
+  color: var(--form-control-disabled);
+  cursor: not-allowed;
 }

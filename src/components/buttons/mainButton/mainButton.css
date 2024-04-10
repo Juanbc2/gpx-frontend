@@ -1,5 +1,5 @@
 .mainButton {
-  background-color: #7E846B;
+  background-color: #e93e23;
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
@@ -9,10 +9,10 @@
 }
 
 .mainButton:hover {
-  background-color: #575538;
+  background-color: #d3291c;
 }
 
 .mainButton:active {
-  background-color: #3D3F2D;
+  background-color: #3d3f2d;
   transform: scale(0.95);
 }

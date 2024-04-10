@@ -13,6 +13,11 @@ const Dashboard = () => {
       </div>
       <div className="options">
         <CardButton
+          title="Gestión de Eventos"
+          description="Gestionar los eventos del DARIEN, que corresponde a las competencias de rally"
+          onClick={() => navigate("/events")}
+        />
+        <CardButton
           title="Gestión de Etapas"
           description="Gestionar las etapas de la competencia, como importar y editar las matrices de las etapas"
           onClick={() => navigate("/stages")}

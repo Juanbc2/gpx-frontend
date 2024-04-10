@@ -28,13 +28,24 @@ const CheckboxSelect = ({
   };
 
   return (
-    <div className="checkboxSelect">
+    <div
+      className="checkboxSelect"
+      onMouseLeave={() => {
+        setIsOpen(false);
+      }}
+    >
       <span className="inputLabel">{title}</span>
       <div className="listBox" onClick={toggleOpen}>
         <div className="arrowDown">
           <FaArrowDown color="white" />
         </div>
-        <label>{defaultOptionText}</label>
+        <label>
+          {checkedOptions.filter((co) => co.checked).length > 0
+            ? `[${
+                checkedOptions.filter((co) => co.checked).length
+              }] ${title}(s)`
+            : defaultOptionText}
+        </label>
       </div>
       {isOpen && (
         <div className="checkboxOptions">

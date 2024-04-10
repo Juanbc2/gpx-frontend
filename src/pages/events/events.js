@@ -1,9 +1,9 @@
 import React from "react";
-import ImportStages from "./importStage/importStages";
 import CardButton from "../../components/buttons/cardButton/cardButton";
-import EditStages from "./editStage/editStages";
 import MainButton from "../../components/buttons/mainButton/mainButton";
 import { useNavigate } from "react-router-dom";
+import EditEvent from "./editEvent/editEvent";
+import CreateEvent from "./createEvent/createEvent";
 
 const Events = () => {
   const navigate = useNavigate();
@@ -40,8 +40,8 @@ const Events = () => {
       )}
 
       <div className="content">
-        {selectedSubPage === "import" && <ImportStages />}
-        {selectedSubPage === "edit" && <EditStages />}
+        {selectedSubPage === "import" && <CreateEvent />}
+        {selectedSubPage === "edit" && <EditEvent />}
       </div>
     </div>
   );

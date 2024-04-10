@@ -1,0 +1,12 @@
+.title {
+  font-size: 2em;
+  margin: 50px;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}

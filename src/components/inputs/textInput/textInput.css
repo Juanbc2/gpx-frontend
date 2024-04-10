@@ -6,7 +6,7 @@
 }
 
 .textInputBox {
-  background-color: #a5ae9e;
+  background-color: #ff5229;
   border-radius: 5px;
   padding: 0.4rem;
 }
@@ -27,4 +27,11 @@
 
 .textInputBox input:focus {
   outline: none;
+}
+
+.inputLabel {
+  float: left;
+  width: fit-content;
+  margin: 0.5rem 0;
+  font-weight: bold;
 }

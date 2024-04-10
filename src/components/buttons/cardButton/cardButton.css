@@ -4,13 +4,13 @@ h4 {
 
 .cardButton {
   background-color: transparent;
-  border: 3px solid #2f2504;
+  border: 3px solid #a7000e;
   border-radius: 10px;
   cursor: pointer;
   margin: 10px;
   width: 250px;
 }
 .cardButton:hover {
-  background-color: #575538;
+  background-color: #d3291c;
   color: white;
 }

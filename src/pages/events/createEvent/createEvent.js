@@ -7,10 +7,9 @@ import { categories } from "../../../services/data/frontInfo";
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { useForm } from "@mantine/form";
 import { notify } from "../../../utils/toastify";
+import { createEventApi } from "../../../services/api/events";
 
 const CreateEvent = () => {
-  const [selectedCategories, setSelectedCategories] = React.useState(null);
-
   const handleSelectedCategories = (values) => {
     eventForm.setFieldValue(
       "categories",
@@ -18,7 +17,6 @@ const CreateEvent = () => {
         return value.value;
       })
     );
-    setSelectedCategories(values);
   };
 
   const eventForm = useForm({
@@ -32,7 +30,7 @@ const CreateEvent = () => {
     },
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!eventForm.values.name) {
       notify("warning", "Ingrese un nombre.");
       return;
@@ -53,7 +51,33 @@ const CreateEvent = () => {
       notify("warning", "Seleccione al menos una categoría.");
       return;
     }
-    notify("success", "Evento creado correctamente.");
+    let eventData = {
+      name: eventForm.values.name,
+      details: eventForm.values.details,
+      location: eventForm.values.location,
+      eventStartDate: eventForm.values.startDate,
+      eventEndDate: eventForm.values.endDate,
+      categoryIds: eventForm.values.categories,
+    };
+
+    let result = await createEventApi(eventData);
+    if (result != null) {
+      notify("success", "Evento creado correctamente.");
+      resetConstants();
+    } else {
+      notify("warning", "No se pudo crear el evento.");
+    }
+  };
+
+  const resetConstants = () => {
+    eventForm.setValues({
+      name: "",
+      location: "",
+      startDate: "2024-01-01",
+      endDate: "2024-12-30",
+      details: "",
+      categories: [],
+    });
   };
 
   return (
@@ -101,13 +125,13 @@ const CreateEvent = () => {
             onChange={(event) =>
               eventForm.setFieldValue("details", event.target.value)
             }
+            value={eventForm.values.details}
           />
           <CheckboxSelect
             title="Categoría"
             defaultOptionText="Seleccione una(s) categoría(s)..."
             options={categories}
             onChange={handleSelectedCategories}
-            value={selectedCategories}
           />
         </div>
       </div>

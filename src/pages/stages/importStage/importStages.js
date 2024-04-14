@@ -116,6 +116,16 @@ const ImportStages = () => {
             "penalization",
             "ratius",
           ]}
+          columnsNames={[
+            "Waypoint",
+            "Latitud",
+            "Longitud",
+            "Tipo",
+            "Distancia",
+            "Velocidad",
+            "Penalización",
+            "Radio",
+          ]}
           rows={loadedMatrix}
         />
       </div>

@@ -4,6 +4,8 @@ import MainButton from "../../components/buttons/mainButton/mainButton";
 import { useNavigate } from "react-router-dom";
 import EditEvent from "./editEvent/editEvent";
 import CreateEvent from "./createEvent/createEvent";
+import ViewEvents from "./viewEvents/viewEvents";
+import "./events.css";
 
 const Events = () => {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const Events = () => {
             <CardButton
               title="Visualización de eventos"
               description="Visualización de eventos creados anteriormente"
-              onClick={() => setSelectedSubPage("edit")}
+              onClick={() => setSelectedSubPage("view")}
             />
           </div>
           <div className="content">
@@ -42,6 +44,7 @@ const Events = () => {
       <div className="content">
         {selectedSubPage === "import" && <CreateEvent />}
         {selectedSubPage === "edit" && <EditEvent />}
+        {selectedSubPage === "view" && <ViewEvents />}
       </div>
     </div>
   );

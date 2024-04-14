@@ -1,7 +1,7 @@
 import React from "react";
 import "./infoTable.css";
 
-const InfoTable = ({ title, columns, rows }) => {
+const InfoTable = ({ title, columns, columnsNames = columns, rows }) => {
   return (
     <div className="infoTable">
       <span className="inputLabel">{title}</span>
@@ -9,7 +9,7 @@ const InfoTable = ({ title, columns, rows }) => {
         <table>
           <thead>
             <tr>
-              {columns.map((column, index) => (
+              {columnsNames.map((column, index) => (
                 <th key={index}>{column}</th>
               ))}
             </tr>

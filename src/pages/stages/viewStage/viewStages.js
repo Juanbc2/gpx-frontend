@@ -29,6 +29,7 @@ const ViewStages = () => {
       <InfoTable
         title="Etapas"
         columns={["eventId", "details", "categoriesIds", "stageDate"]}
+        columnsNames={["ID", "Detalles", "Categorías", "Fecha"]}
         rows={stages}
       />
     </div>

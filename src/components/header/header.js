@@ -7,8 +7,10 @@ const Header = () => {
   const navigate = useNavigate();
   return (
     <div className="header">
-      <div className="brand">
-        <h1 onClick={() => navigate("/")}>GPX VISOR</h1>
+      <div className="brand" onClick={() => navigate("/")}>
+        <h1>DARIEN</h1>
+        <hr></hr>
+        <h3>RALLY ANALYZER</h3>
       </div>
       <div>
         <ul className="menu">

@@ -1,10 +1,19 @@
 .header {
-  background-color: #a7000e;
+  background-color: #d3291c;
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   padding-top: 15px;
+}
+
+.brand {
+  text-align: center;
+  justify-content: center;
+}
+
+.brand hr {
+  margin: 0 auto;
 }
 
 .brand h1 {
@@ -13,9 +22,26 @@
   padding: 0;
 }
 
-.brand h1:hover {
-  color: #b4b2b2;
+.brand h3 {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+  bottom: 10px;
+}
+
+.brand h1,
+.brand h3 {
+  line-height: 0.96;
+  user-select: none;
+}
+
+.brand:hover {
+  transform: scale(1.05);
   cursor: pointer;
+}
+
+.brand:active {
+  color: #A7000E;
 }
 
 .menu {
@@ -36,8 +62,9 @@ a {
   padding: 14px 16px;
   text-decoration: none;
   font-size: larger;
+  font-weight: 600;
 }
 
 a:hover {
-  background-color: #111;
+  background-color: #a7000e;
 }

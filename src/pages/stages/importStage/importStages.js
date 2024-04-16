@@ -11,6 +11,7 @@ import SimpleSelect from "../../../components/selects/simpleSelect/simpleSelect"
 import { getEventsApi } from "../../../services/api/events";
 import { categories } from "../../../services/data/frontInfo";
 import {
+  dateToInputDate,
   getValuesFromDictionary,
   valueInArray,
 } from "../../../utils/functions";
@@ -54,6 +55,10 @@ const ImportStages = () => {
 
   const resetConstants = () => {
     setLoadedMatrix([]);
+    setSelectedEvent(null);
+    setEventCategories([]);
+    setDetails("");
+    setDate(dateToInputDate(new Date()));
     setSelectedCategories(null);
   };
 
@@ -105,7 +110,7 @@ const ImportStages = () => {
   const [selectedEvent, setSelectedEvent] = React.useState(null);
   const [events, setEvents] = React.useState([]);
   const [details, setDetails] = React.useState("");
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = React.useState(dateToInputDate(new Date()));
 
   const getEvents = useCallback(async () => {
     let result = await getEventsApi();

@@ -3,24 +3,11 @@ import "./viewStages.css";
 import { getStagesApi } from "../../../services/api/stages";
 import InfoTable from "../../../components/tables/infoTable/infoTable";
 import { getEventsApi } from "../../../services/api/events";
+import { categories } from "../../../services/data/frontInfo";
+import { getTextFromIdsList } from "../../../utils/functions";
 
 const ViewStages = () => {
   const [stages, setStages] = React.useState([]);
-
-  const getStages = async () => {
-    const result = await getStagesApi();
-    let stages = [];
-    result.map((stage) => {
-      return stages.push({
-        id: stage.id,
-        event: getEventName(stage.eventId),
-        details: stage.details,
-        categoriesIds: stage.categoriesIds.toString(),
-        stageDate: stage.stageDate,
-      });
-    });
-    setStages(stages);
-  };
 
   const [events, setEvents] = React.useState([]);
   const getEvents = async () => {
@@ -42,9 +29,28 @@ const ViewStages = () => {
     return event ? event.label : "Evento no encontrado";
   };
 
+  const getStages = async () => {
+    const result = await getStagesApi();
+    let stages = [];
+    result.map((stage) => {
+      return stages.push({
+        id: stage.id,
+        event: getEventName(stage.eventId),
+        details: stage.details,
+        categoriesIds: getTextFromIdsList(
+          stage.categoriesIds,
+          categories
+        ).toString(),
+        stageDate: stage.stageDate,
+      });
+    });
+    setStages(stages);
+  };
+
   useEffect(() => {
     getStages();
     getEvents();
+    // eslint-disable-next-line
   }, []);
 
   return (

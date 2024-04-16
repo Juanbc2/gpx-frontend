@@ -3,6 +3,7 @@ import { getEventsApi } from "../../../services/api/events";
 import { notify } from "../../../utils/toastify";
 import InfoTable from "../../../components/tables/infoTable/infoTable";
 import { categories } from "../../../services/data/frontInfo";
+import { getTextFromIdsList } from "../../../utils/functions";
 
 const ViewEvents = () => {
   const [events, setEvents] = React.useState([]);
@@ -32,25 +33,17 @@ const ViewEvents = () => {
           eventStartDate: event.eventStartDate,
           eventEndDate: event.eventEndDate,
           stagesIds: event.stagesIds.toString(),
-          categoryIds: getCategoriesNames(event.categoryIds).toString(),
+          categoryIds: getTextFromIdsList(
+            event.categoryIds,
+            categories
+          ).toString(),
         });
       });
       setEvents(events);
     } else notify("warning", "Error al obtener los eventos.");
   }, []);
 
-  const getCategoriesNames = (categoriesIds) => {
-    let categoriesNames = [];
-    categoriesIds.map((categoryId) => {
-      let category = categories.find(
-        (category) => category.value === categoryId
-      );
-      return category !== undefined
-        ? categoriesNames.push(`(${category.text})`)
-        : categoriesNames.push("(Sin categoría)");
-    });
-    return categoriesNames;
-  };
+
 
   useEffect(() => {
     getEvents();

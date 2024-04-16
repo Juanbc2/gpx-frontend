@@ -11,3 +11,20 @@ export const getValuesFromDictionary = (dictionary, key) => {
   });
   return values;
 };
+
+export const dateToInputDate = (date) => {
+  return date.toISOString().split("T")[0];
+};
+
+export const getTextFromIdsList = (Ids, originalList) => {
+  let categoriesNames = [];
+  Ids.map((categoryId) => {
+    let category = originalList.find(
+      (category) => category.value === categoryId
+    );
+    return category !== undefined
+      ? categoriesNames.push(`(${category.text})`)
+      : categoriesNames.push("(NA)");
+  });
+  return categoriesNames;
+};

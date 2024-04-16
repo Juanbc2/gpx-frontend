@@ -8,6 +8,7 @@ import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { useForm } from "@mantine/form";
 import { notify } from "../../../utils/toastify";
 import { createEventApi } from "../../../services/api/events";
+import { dateToInputDate } from "../../../utils/functions";
 
 const CreateEvent = () => {
   const handleSelectedCategories = (values) => {
@@ -23,8 +24,8 @@ const CreateEvent = () => {
     initialValues: {
       name: "",
       location: "",
-      startDate: "2024-01-01",
-      endDate: "2024-12-30",
+      startDate: dateToInputDate(new Date()),
+      endDate: dateToInputDate(new Date()),
       details: "",
       categories: [],
     },

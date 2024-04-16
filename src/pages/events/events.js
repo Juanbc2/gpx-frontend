@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardButton from "../../components/buttons/cardButton/cardButton";
 import MainButton from "../../components/buttons/mainButton/mainButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import EditEvent from "./editEvent/editEvent";
 import CreateEvent from "./createEvent/createEvent";
 import ViewEvents from "./viewEvents/viewEvents";
 import "./events.css";
 
 const Events = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [selectedSubPage, setSelectedSubPage] = React.useState(null);
+
+  useEffect(() => {
+    location.state != null &&
+      location.state.subPage != null &&
+      setSelectedSubPage(location.state.subPage);
+  }, [location]);
 
   return (
     <div>

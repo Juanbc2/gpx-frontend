@@ -2,6 +2,7 @@ import React from "react";
 import "./header.css";
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import HeaderOption from "./headerOption/headerOption";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -14,12 +15,65 @@ const Header = () => {
       </div>
       <div>
         <ul className="menu">
-          <li>
-            <a href="/events">Eventos</a>
-          </li>
-          <li>
-            <a href="/stages">Etapas</a>
-          </li>
+          <HeaderOption title="Eventos" mainRoute="/events">
+            <span
+              onClick={() => {
+                navigate("/events", {
+                  state: { subPage: "import" },
+                });
+              }}
+            >
+              Crear evento
+            </span>
+            <span
+              onClick={() => {
+                navigate("/events", {
+                  state: { subPage: "edit" },
+                });
+              }}
+            >
+              Editar eventos
+            </span>
+            <span
+              onClick={() => {
+                navigate("/events", {
+                  state: { subPage: "view" },
+                });
+              }}
+            >
+              Visualización de eventos
+            </span>
+          </HeaderOption>
+
+          <HeaderOption title="Etapas" mainRoute="/stages">
+            <span
+              onClick={() => {
+                navigate("/stages", {
+                  state: { subPage: "import" },
+                });
+              }}
+            >
+              Importar etapas
+            </span>
+            <span
+              onClick={() => {
+                navigate("/stages", {
+                  state: { subPage: "edit" },
+                });
+              }}
+            >
+              Editar etapas
+            </span>
+            <span
+              onClick={() => {
+                navigate("/stages", {
+                  state: { subPage: "view" },
+                });
+              }}
+            >
+              Ver etapas
+            </span>
+          </HeaderOption>
           <li>
             <a href="/drivers">Corredores</a>
           </li>

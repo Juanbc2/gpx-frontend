@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ImportStages from "./importStage/importStages";
 import CardButton from "../../components/buttons/cardButton/cardButton";
 import EditStages from "./editStage/editStages";
 import MainButton from "../../components/buttons/mainButton/mainButton";
 import { useNavigate } from "react-router-dom";
 import ViewStages from "./viewStage/viewStages";
+import { useLocation } from "react-router-dom";
 
 const Stages = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [selectedSubPage, setSelectedSubPage] = React.useState(null);
+
+  useEffect(() => {
+    location.state != null &&
+      location.state.subPage != null &&
+      setSelectedSubPage(location.state.subPage);
+  }, [location]);
 
   return (
     <div>

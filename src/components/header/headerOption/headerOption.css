@@ -1,0 +1,31 @@
+.headerDropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  background-color: #a7000e;
+  border-radius: 0 0 15px 15px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 0;
+}
+
+.headerDropdown > * {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0px 10px 5px 10px;
+  gap: 10px;
+}
+
+.headerDropdown:last-child {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.headerDropdown > *:hover {
+  background-color: #e93e23;
+}

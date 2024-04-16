@@ -10,7 +10,12 @@ import CheckboxSelect from "../../../components/selects/checkboxSelect/checkboxS
 import SimpleSelect from "../../../components/selects/simpleSelect/simpleSelect";
 import { getEventsApi } from "../../../services/api/events";
 import { categories } from "../../../services/data/frontInfo";
-import { valueInArray } from "../../../utils/functions";
+import {
+  getValuesFromDictionary,
+  valueInArray,
+} from "../../../utils/functions";
+import { createStageApi } from "../../../services/api/stages";
+import DateInput from "../../../components/inputs/dateInput/dateInput";
 
 const ImportStages = () => {
   const handleImport = () => {
@@ -30,9 +35,20 @@ const ImportStages = () => {
     }
 
     if (readyToImport) {
-      // TODO: Implement the import logic with API
-      notify("success", "Matriz importada correctamente.");
-      resetConstants();
+      let stageData = {
+        eventId: selectedEvent,
+        details: details,
+        categoriesIds: getValuesFromDictionary(selectedCategories, "value"),
+        stageDate: date,
+        waypoints: loadedMatrix,
+      };
+      let result = createStageApi(stageData);
+      if (result !== null) {
+        notify("success", "Etapa importada correctamente.");
+        resetConstants();
+      } else {
+        notify("error", "Error al importar la etapa.");
+      }
     }
   };
 
@@ -88,6 +104,9 @@ const ImportStages = () => {
   const [eventCategories, setEventCategories] = React.useState([]);
   const [selectedEvent, setSelectedEvent] = React.useState(null);
   const [events, setEvents] = React.useState([]);
+  const [details, setDetails] = React.useState("");
+  const [date, setDate] = React.useState(new Date());
+
   const getEvents = useCallback(async () => {
     let result = await getEventsApi();
     if (result !== null) {
@@ -159,8 +178,6 @@ const ImportStages = () => {
           onChange={(e) => handleSelectedEvent(e.target.value)}
           options={events}
         />
-      </div>
-      <div className="content">
         <CheckboxSelect
           title="Categoría"
           defaultOptionText="Seleccione una(s) categoría(s)..."
@@ -168,7 +185,24 @@ const ImportStages = () => {
           onChange={handleSelectedCategories}
           value={selectedCategories}
         />
-        <TextInput title="Detalles" placeholder="Detalles del evento" />
+      </div>
+      <div className="content">
+        <DateInput
+          title="Fecha"
+          onChange={(event) => {
+            setDate(event.target.value);
+          }}
+          value={date}
+        />
+        <TextInput
+          title="Detalles"
+          placeholder="Detalles de la etapa"
+          onChange={(e) => setDetails(e.target.value)}
+          value={details}
+        />
+      </div>
+      <div className="content">
+        <MainButton text="Importar" onClick={handleImport} />
       </div>
       <div className="content">
         <InfoTable
@@ -195,9 +229,6 @@ const ImportStages = () => {
           ]}
           rows={loadedMatrix}
         />
-      </div>
-      <div className="content">
-        <MainButton text="Importar" onClick={handleImport} />
       </div>
     </div>
   );

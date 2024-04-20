@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardButton from "../../components/buttons/cardButton/cardButton";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
+import { notify } from "../../utils/toastify";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  const tokenVerified = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (tokenVerified == null) {
+      notify("error", "No tiene permisos para acceder a esta página");
+      navigate("/");
+    }
+  }, [tokenVerified]);
+
   return (
     <div>
       <div className="title">

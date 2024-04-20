@@ -114,7 +114,7 @@ const ImportStages = () => {
 
   const getEvents = useCallback(async () => {
     let result = await getEventsApi();
-    if (result !== null) {
+    if (result != null) {
       let events = result.map((event) => {
         return {
           value: event.id,

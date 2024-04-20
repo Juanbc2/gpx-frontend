@@ -6,13 +6,15 @@ import Stages from "./pages/stages/stages";
 import NotFound from "./pages/notFound/notFound";
 import Header from "./components/header/header";
 import Events from "./pages/events/events";
+import Login from "./pages/login/login";
 
 function App() {
   return (
     <div>
       <Header />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/stages" element={<Stages />} />
         <Route path="/events" element={<Events />} />

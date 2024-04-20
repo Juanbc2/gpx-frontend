@@ -41,7 +41,7 @@
 }
 
 .brand:active {
-  color: #A7000E;
+  color: #a7000e;
 }
 
 .menu {
@@ -67,4 +67,15 @@ a {
 
 a:hover {
   background-color: #a7000e;
+}
+
+.outButton {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: larger;
+  font-weight: 600;
+  cursor: pointer;
 }

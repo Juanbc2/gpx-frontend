@@ -12,14 +12,16 @@ const ViewStages = () => {
   const [events, setEvents] = React.useState([]);
   const getEvents = async () => {
     const result = await getEventsApi();
-    let events = [];
-    result.map((event) => {
-      return events.push({
-        value: event.id,
-        label: event.name,
+    if (result != null) {
+      let events = [];
+      result.map((event) => {
+        return events.push({
+          value: event.id,
+          label: event.name,
+        });
       });
-    });
-    setEvents(events);
+      setEvents(events);
+    }
   };
 
   const getEventName = (eventId) => {
@@ -31,34 +33,40 @@ const ViewStages = () => {
 
   const getStages = async () => {
     const result = await getStagesApi();
-    let stages = [];
-    result.map((stage) => {
-      return stages.push({
-        id: stage.id,
-        event: getEventName(stage.eventId),
-        details: stage.details,
-        categoriesIds: getTextFromIdsList(
-          stage.categoriesIds,
-          categories
-        ).toString(),
-        stageDate: stage.stageDate,
+    if (result != null) {
+      let stages = [];
+      result.map((stage) => {
+        return stages.push({
+          id: stage.id,
+          event: getEventName(stage.eventId),
+          details: stage.details,
+          categoriesIds: getTextFromIdsList(
+            stage.categoriesIds,
+            categories
+          ).toString(),
+          stageDate: stage.stageDate,
+        });
       });
-    });
-    setStages(stages);
+      setStages(stages);
+    }
   };
 
   useEffect(() => {
-    getStages();
     getEvents();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    getStages();
+    // eslint-disable-next-line
+  }, [events]);
 
   return (
     <div>
       <InfoTable
         title="Etapas"
-        columns={["id", "event", "details", "categoriesIds", "stageDate"]}
-        columnsNames={["id", "Evento", "Detalles", "Categorías", "Fecha"]}
+        columns={["id", "event", "stageDate", "details", "categoriesIds"]}
+        columnsNames={["id", "Evento", "Fecha", "Detalles", "Categorías"]}
         rows={stages}
       />
     </div>

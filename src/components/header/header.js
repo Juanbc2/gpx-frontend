@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./header.css";
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import HeaderOption from "./headerOption/headerOption";
+import { LuLogIn } from "react-icons/lu";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const tokenVerified = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <div className="header">
       <div className="brand" onClick={() => navigate("/")}>
@@ -82,11 +91,15 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      <div>
-        <a href="/">
+      {tokenVerified ? (
+        <div className="outButton" onClick={handleLogout}>
           Salir <FaArrowRight size={15} />
-        </a>
-      </div>
+        </div>
+      ) : (
+        <div className="outButton" onClick={() => navigate("/")}>
+          Iniciar Sesión <LuLogIn size={15} />
+        </div>
+      )}
     </div>
   );
 };

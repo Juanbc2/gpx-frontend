@@ -1,0 +1,35 @@
+.logo {
+  width: auto;
+  max-width: 13rem;
+  margin-bottom: 20px;
+}
+
+.loginFrame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid black;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.loginFrame h1 {
+  margin-bottom: 20px;
+}
+
+.loginFrame input {
+  margin-bottom: 10px;
+}
+
+.loginFrame button {
+  margin-top: 10px;
+}
+
+.loginFrame form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

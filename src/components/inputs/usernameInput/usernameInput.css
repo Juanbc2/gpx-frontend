@@ -1,0 +1,39 @@
+.usernameInput {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.usernameInputBox {
+  background-color: #ff5229;
+  border-radius: 5px;
+}
+
+.usernameInputBox input {
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #ffffff;
+  text-align: start;
+  width: 15rem;
+}
+
+.usernameInputBox input[type="text"] {
+  text-align: center;
+}
+
+.usernameInputBox input::placeholder {
+  color: #ffffff9a;
+}
+
+.usernameInputBox input:focus {
+  outline: none;
+}
+
+.inputLabel {
+  float: left;
+  width: fit-content;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}

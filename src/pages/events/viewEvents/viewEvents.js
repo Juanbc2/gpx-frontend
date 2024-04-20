@@ -21,7 +21,6 @@ const ViewEvents = () => {
 
   const getEvents = useCallback(async () => {
     const result = await getEventsApi();
-    console.log(result);
     if (result != null) {
       let events = [];
       result.map((event) => {

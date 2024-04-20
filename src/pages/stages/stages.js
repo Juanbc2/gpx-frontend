@@ -6,6 +6,7 @@ import MainButton from "../../components/buttons/mainButton/mainButton";
 import { useNavigate } from "react-router-dom";
 import ViewStages from "./viewStage/viewStages";
 import { useLocation } from "react-router-dom";
+import { notify } from "../../utils/toastify";
 
 const Stages = () => {
   const location = useLocation();
@@ -17,6 +18,15 @@ const Stages = () => {
       location.state.subPage != null &&
       setSelectedSubPage(location.state.subPage);
   }, [location]);
+
+  const tokenVerified = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (tokenVerified == null) {
+      notify("error", "No tiene permisos para acceder a esta página");
+      navigate("/");
+    }
+  }, [tokenVerified]);
 
   return (
     <div>
@@ -43,7 +53,7 @@ const Stages = () => {
             />
           </div>
           <div className="content">
-            <MainButton text="Atrás" onClick={() => navigate("/")} />
+            <MainButton text="Atrás" onClick={() => navigate("/dashboard")} />
           </div>
         </div>
       )}

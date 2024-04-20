@@ -6,6 +6,7 @@ import EditEvent from "./editEvent/editEvent";
 import CreateEvent from "./createEvent/createEvent";
 import ViewEvents from "./viewEvents/viewEvents";
 import "./events.css";
+import { notify } from "../../utils/toastify";
 
 const Events = () => {
   const location = useLocation();
@@ -17,6 +18,21 @@ const Events = () => {
       location.state.subPage != null &&
       setSelectedSubPage(location.state.subPage);
   }, [location]);
+
+  const tokenVerified = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (tokenVerified == null) {
+      notify("error", "No tiene permisos para acceder a esta página");
+      navigate("/");
+    }
+  }, [tokenVerified]);
+
+  useEffect(() => {
+    if (tokenVerified == null) {
+      navigate("/");
+    }
+  }, [tokenVerified]);
 
   return (
     <div>
@@ -43,7 +59,7 @@ const Events = () => {
             />
           </div>
           <div className="content">
-            <MainButton text="Atrás" onClick={() => navigate("/")} />
+            <MainButton text="Atrás" onClick={() => navigate("/dashboard")} />
           </div>
         </div>
       )}

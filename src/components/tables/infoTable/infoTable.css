@@ -14,12 +14,14 @@
 }
 
 .tableBox table {
-  background-color: #ff5229;
-  color: white;
+  background-color: #ff502950;
+  color: black;
+  font-weight: 500;
 }
 
 .infoTable thead {
   background-color: #e93e23;
+  color: white;
 }
 
 .tableBox table th,

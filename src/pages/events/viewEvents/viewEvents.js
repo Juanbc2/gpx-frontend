@@ -42,14 +42,13 @@ const ViewEvents = () => {
     } else notify("warning", "Error al obtener los eventos.");
   }, []);
 
-
-
   useEffect(() => {
     getEvents();
   }, [getEvents]);
 
   return (
     <div>
+      <h1 className="title">Visualización de eventos</h1>
       <div className="content">
         <InfoTable
           title="Eventos"

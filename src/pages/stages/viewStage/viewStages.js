@@ -63,12 +63,15 @@ const ViewStages = () => {
 
   return (
     <div>
-      <InfoTable
-        title="Etapas"
-        columns={["id", "event", "stageDate", "details", "categoriesIds"]}
-        columnsNames={["id", "Evento", "Fecha", "Detalles", "Categorías"]}
-        rows={stages}
-      />
+      <h1 className="title">Visualización de etapas</h1>
+      <div className="content">
+        <InfoTable
+          title="Etapas"
+          columns={["id", "event", "stageDate", "details", "categoriesIds"]}
+          columnsNames={["id", "Evento", "Fecha", "Detalles", "Categorías"]}
+          rows={stages}
+        />
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./header.css";
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

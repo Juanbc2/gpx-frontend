@@ -5,6 +5,8 @@ import InfoTable from "../../../components/tables/infoTable/infoTable";
 import { getEventsApi } from "../../../services/api/events";
 import { categories } from "../../../services/data/frontInfo";
 import { getTextFromIdsList } from "../../../utils/functions";
+import MainButton from "../../../components/buttons/mainButton/mainButton";
+import ViewWaypoint from "../viewWaypoint/viewWaypoint";
 
 const ViewStages = () => {
   const [stages, setStages] = React.useState([]);
@@ -45,6 +47,19 @@ const ViewStages = () => {
             categories
           ).toString(),
           stageDate: stage.stageDate,
+          waypoints: (
+            <MainButton
+              text={"Ver Waypoints"}
+              onClick={() => {
+                handleSelectedStage(stage);
+                // navigate("/viewWaypoint", {
+                //   state: { stage: stage },
+                // });
+              }}
+            >
+              Ver waypoints
+            </MainButton>
+          ),
         });
       });
       setStages(stages);
@@ -61,17 +76,52 @@ const ViewStages = () => {
     // eslint-disable-next-line
   }, [events]);
 
+  const [viewWaypointShow, setViewWaypointShow] = React.useState(false);
+  const [selectedStage, setSelectedStage] = React.useState(null);
+
+  const handleSelectedStage = (stage) => {
+    setSelectedStage(stage);
+    setViewWaypointShow(true);
+  };
+
+  const handleOnCloseViewWaypoint = () => {
+    setViewWaypointShow(false);
+  };
+
   return (
     <div>
-      <h1 className="title">Visualización de etapas</h1>
-      <div className="content">
-        <InfoTable
-          title="Etapas"
-          columns={["id", "event", "stageDate", "details", "categoriesIds"]}
-          columnsNames={["id", "Evento", "Fecha", "Detalles", "Categorías"]}
-          rows={stages}
+      {viewWaypointShow ? (
+        <ViewWaypoint
+          stage={selectedStage}
+          onClose={handleOnCloseViewWaypoint}
         />
-      </div>
+      ) : (
+        <div>
+          <h1 className="title">Visualización de etapas</h1>
+          <div className="content">
+            <InfoTable
+              title="Etapas"
+              columns={[
+                "id",
+                "event",
+                "stageDate",
+                "details",
+                "categoriesIds",
+                "waypoints",
+              ]}
+              columnsNames={[
+                "id",
+                "Evento",
+                "Fecha",
+                "Detalles",
+                "Categorías",
+                "Waypoints",
+              ]}
+              rows={stages}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

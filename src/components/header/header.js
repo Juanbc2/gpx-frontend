@@ -83,9 +83,44 @@ const Header = () => {
               Ver etapas
             </span>
           </HeaderOption>
-          <li>
-            <a href="/drivers">Corredores</a>
-          </li>
+          <HeaderOption title="Corredores" mainRoute="/drivers">
+            <span
+              onClick={() => {
+                navigate("/drivers", {
+                  state: { subPage: "create" },
+                });
+              }}
+            >
+              Crear corredores
+            </span>
+            <span
+              onClick={() => {
+                navigate("/drivers", {
+                  state: { subPage: "import" },
+                });
+              }}
+            >
+              Importar etapa
+            </span>
+            <span
+              onClick={() => {
+                navigate("/drivers", {
+                  state: { subPage: "edit" },
+                });
+              }}
+            >
+              Editar corredores
+            </span>
+            <span
+              onClick={() => {
+                navigate("/drivers", {
+                  state: { subPage: "view" },
+                });
+              }}
+            >
+              Ver corredores
+            </span>
+          </HeaderOption>
           <li>
             <a href="/results">Resultados</a>
           </li>

@@ -7,6 +7,7 @@ import NotFound from "./pages/notFound/notFound";
 import Header from "./components/header/header";
 import Events from "./pages/events/events";
 import Login from "./pages/login/login";
+import Competitors from "./pages/competitors/competitors";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/stages" element={<Stages />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/drivers" element={<Competitors />} />
       </Routes>
     </div>
   );

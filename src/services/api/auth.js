@@ -11,7 +11,6 @@ export const loginApi = async (user) => {
       },
       body: JSON.stringify(user),
     });
-    console.log();
     if (!response.ok) {
       notify("info", "Usuario o contraseña incorrectos.");
       return null;

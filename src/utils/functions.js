@@ -28,3 +28,14 @@ export const getTextFromIdsList = (Ids, originalList) => {
   });
   return categoriesNames;
 };
+
+export const getTypeKeyByValue = (
+  typeList,
+  key,
+  value,
+  valueName = 'value',
+) => {
+  if (typeList == undefined) return ''
+  let type = typeList.find((type) => type[valueName] === value)
+  return type == undefined ? '' : key == '' ? type : type[key]
+}

@@ -33,9 +33,23 @@ export const getTypeKeyByValue = (
   typeList,
   key,
   value,
-  valueName = 'value',
+  valueName = "value"
 ) => {
-  if (typeList == undefined) return ''
-  let type = typeList.find((type) => type[valueName] === value)
-  return type == undefined ? '' : key == '' ? type : type[key]
-}
+  if (typeList == undefined) return "";
+  let type = typeList.find((type) => type[valueName] === value);
+  return type == undefined ? "" : key == "" ? type : type[key];
+};
+
+export const decimalTimeToTime = (timeRaw) => {
+  if (timeRaw == undefined) return "";
+  const decimalTime = timeRaw;
+  const hours = Math.floor(decimalTime * 24);
+  const minutes = Math.floor((decimalTime * 24 - hours) * 60);
+  const seconds = Math.floor(((decimalTime * 24 - hours) * 60 - minutes) * 60);
+
+  const timeString = `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+  return timeString;
+};

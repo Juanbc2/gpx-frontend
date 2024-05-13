@@ -11,7 +11,7 @@ import { notify } from "../../utils/toastify";
 const Stages = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [selectedSubPage, setSelectedSubPage] = React.useState(null);
+  const [selectedSubPage, setSelectedSubPage] = React.useState("");
 
   useEffect(() => {
     location.state != null &&
@@ -30,7 +30,7 @@ const Stages = () => {
 
   return (
     <div>
-      {selectedSubPage === null && (
+      {selectedSubPage === "" && (
         <div>
           <div className="title">
             <h1>Gestión de etapas</h1>

@@ -7,12 +7,12 @@ import CreateCompetitors from "./createCompetitors/createCompetitors";
 import ViewCompetitors from "./viewCompetitors/viewCompetitors";
 import "./competitors.css";
 import { notify } from "../../utils/toastify";
-import UploadCompetitorStage from "./uploadCompetitorStage/uploadCompetitorStage";
+import ImportCompetitorStage from "./importCompetitorStage/importCompetitorStage";
 
 const Competitors = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [selectedSubPage, setSelectedSubPage] = React.useState(null);
+  const [selectedSubPage, setSelectedSubPage] = React.useState("");
 
   useEffect(() => {
     location.state != null &&
@@ -37,7 +37,7 @@ const Competitors = () => {
 
   return (
     <div>
-      {selectedSubPage === null && (
+      {selectedSubPage === "" && (
         <div>
           <div className="title">
             <h1>Gestión de corredores</h1>
@@ -72,7 +72,7 @@ const Competitors = () => {
 
       <div className="content">
         {selectedSubPage === "create" && <CreateCompetitors />}
-        {selectedSubPage === "import" && <UploadCompetitorStage />}
+        {selectedSubPage === "import" && <ImportCompetitorStage />}
         {selectedSubPage === "edit" && <EditCompetitors />}
         {selectedSubPage === "view" && <ViewCompetitors />}
       </div>

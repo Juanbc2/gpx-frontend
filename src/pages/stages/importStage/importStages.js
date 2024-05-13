@@ -12,6 +12,7 @@ import { getEventsApi } from "../../../services/api/events";
 import { categories } from "../../../services/data/frontInfo";
 import {
   dateToInputDate,
+  decimalTimeToTime,
   getValuesFromDictionary,
   valueInArray,
 } from "../../../utils/functions";
@@ -99,8 +100,9 @@ const ImportStages = () => {
         type: row["type"],
         distance: row["distance"],
         speed: row["speed"],
-        penalization: row["penalization"],
+        penalization: decimalTimeToTime(row["penalization"]),
         ratius: row["ratius"],
+        neutralization: decimalTimeToTime(row["neutralizationT"]),
       });
     });
     return products;
@@ -221,6 +223,7 @@ const ImportStages = () => {
             "speed",
             "penalization",
             "ratius",
+            "neutralization",
           ]}
           columnsNames={[
             "Waypoint",
@@ -231,6 +234,7 @@ const ImportStages = () => {
             "Velocidad",
             "Penalización",
             "Radio",
+            "T. Neutralización",
           ]}
           rows={loadedMatrix}
         />

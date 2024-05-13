@@ -53,7 +53,6 @@ const Header = () => {
               Visualización de eventos
             </span>
           </HeaderOption>
-
           <HeaderOption title="Etapas" mainRoute="/stages">
             <span
               onClick={() => {
@@ -121,9 +120,8 @@ const Header = () => {
               Ver corredores
             </span>
           </HeaderOption>
-          <li>
-            <a href="/results">Resultados</a>
-          </li>
+          <HeaderOption title="Resultados" mainRoute="/"></HeaderOption>
+          {/* temporal */}
         </ul>
       </div>
       {tokenVerified ? (

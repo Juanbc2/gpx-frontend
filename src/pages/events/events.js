@@ -11,9 +11,10 @@ import { notify } from "../../utils/toastify";
 const Events = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [selectedSubPage, setSelectedSubPage] = React.useState(null);
+  const [selectedSubPage, setSelectedSubPage] = React.useState("");
 
   useEffect(() => {
+    console.log(location.state);
     location.state != null &&
       location.state.subPage != null &&
       setSelectedSubPage(location.state.subPage);
@@ -36,7 +37,7 @@ const Events = () => {
 
   return (
     <div>
-      {selectedSubPage === null && (
+      {selectedSubPage === "" && (
         <div>
           <div className="title">
             <h1>Gestión de eventos</h1>

@@ -29,3 +29,18 @@
 .headerDropdown > *:hover {
   background-color: #e93e23;
 }
+
+li > span {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: larger;
+  font-weight: 600;
+}
+
+li > span:hover {
+  background-color: #a7000e;
+  cursor: pointer;
+}

@@ -80,3 +80,22 @@ export const deleteCompetitorApi = async (id) => {
     notify("error", "Error al eliminar el competidor.");
   }
 };
+
+export const analyzeCompetitorGpxApi = async (gpxData) => {
+  try {
+    const response = await fetch(`${apiUrl}/competitors/gpx/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(gpxData),
+    });
+    if (!response.ok) {
+      notify("error", "Error al analizar el gpx.");
+      return [];
+    }
+    return response.json();
+  } catch (error) {
+    notify("error", "Error al analizar el gpx.");
+  }
+};

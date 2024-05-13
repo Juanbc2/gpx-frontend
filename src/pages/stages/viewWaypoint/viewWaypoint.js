@@ -29,6 +29,7 @@ const ViewWaypoint = ({ stage, onClose }) => {
             "speed",
             "penalization",
             "ratius",
+            "neutralization",
           ]}
           columnsNames={[
             "N°",
@@ -39,6 +40,7 @@ const ViewWaypoint = ({ stage, onClose }) => {
             "Velocidad",
             "Penalización",
             "Radio",
+            "T. Neutralización",
           ]}
           rows={waypoints}
         />

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./headerOption.css";
+import { useNavigate } from "react-router-dom";
 
 const HeaderOption = ({ title, mainRoute = "/", children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <li
@@ -12,7 +14,9 @@ const HeaderOption = ({ title, mainRoute = "/", children }) => {
         backgroundColor: isOpen && "#A7000E",
       }}
     >
-      <a href={mainRoute}>{title}</a>
+      <span onClick={() => navigate(mainRoute, { state: { subPage: "" } })}>
+        {title}
+      </span>
       {isOpen && <div className="headerDropdown">{children}</div>}
     </li>
   );

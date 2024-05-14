@@ -4,7 +4,10 @@
   "private": true,
   "main": "electron-main.js",
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@mantine/form": "^7.7.1",
+    "@mui/material": "^5.15.17",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -25,10 +28,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject",  
+    "eject": "react-scripts eject",
     "electron": "electron ."
   },
-  
   "eslintConfig": {
     "extends": [
       "react-app",

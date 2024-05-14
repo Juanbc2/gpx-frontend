@@ -11,7 +11,9 @@ import {
 } from "../../../services/api/competitors";
 
 const ImportCompetitorStage = () => {
-  const handleImport = () => {
+  const [analyzingCompetitorGpxApi, setAnalyzingCompetitorGpxApi] =
+    useState(false);
+  const handleImport = async () => {
     let readyToImport = true;
     if (loadedPath.length === 0) {
       notify("warning", "Cargue un archivo gpx.");
@@ -28,19 +30,23 @@ const ImportCompetitorStage = () => {
     }
 
     if (readyToImport) {
+      setAnalyzingCompetitorGpxApi(true);
       let gpxData = {
         filePath: loadedPath,
         competitorId: selectedCompetitor,
         stageId: selectedStage,
       };
-      let result = analyzeCompetitorGpxApi(gpxData);
+      let result = await analyzeCompetitorGpxApi(gpxData);
       if (result !== null) {
+        console.log(JSON.parse(result));
         notify("success", "Etapa importada correctamente.");
+
         resetConstants();
       } else {
         notify("error", "Error al importar la etapa.");
       }
     }
+    setAnalyzingCompetitorGpxApi(false);
   };
 
   const [resetFileInput, setResetFileInput] = useState(false);
@@ -134,7 +140,11 @@ const ImportCompetitorStage = () => {
         />
       </div>
       <div className="content">
-        <MainButton text="Importar" onClick={handleImport} />
+        <MainButton
+          disabled={analyzingCompetitorGpxApi}
+          text={analyzingCompetitorGpxApi? "Analizando" : "Importar"}
+          onClick={handleImport}
+        />
       </div>
     </div>
   );

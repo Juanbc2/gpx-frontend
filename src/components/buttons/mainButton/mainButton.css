@@ -8,6 +8,15 @@
   cursor: pointer;
 }
 
+.mainButtonDisabled {
+  background-color: #644e4b;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1rem;
+}
+
 .mainButton:hover {
   background-color: #d3291c;
 }

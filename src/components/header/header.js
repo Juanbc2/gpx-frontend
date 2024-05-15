@@ -82,7 +82,7 @@ const Header = () => {
               Ver etapas
             </span>
           </HeaderOption>
-          <HeaderOption title="Corredores" mainRoute="/drivers">
+          <HeaderOption title="Competidores" mainRoute="/drivers">
             <span
               onClick={() => {
                 navigate("/drivers", {
@@ -90,7 +90,7 @@ const Header = () => {
                 });
               }}
             >
-              Crear corredores
+              Crear competidores
             </span>
             <span
               onClick={() => {
@@ -108,7 +108,7 @@ const Header = () => {
                 });
               }}
             >
-              Editar corredores
+              Editar competidores
             </span>
             <span
               onClick={() => {
@@ -117,7 +117,7 @@ const Header = () => {
                 });
               }}
             >
-              Ver corredores
+              Ver competidores
             </span>
           </HeaderOption>
           <HeaderOption title="Resultados" mainRoute="/"></HeaderOption>

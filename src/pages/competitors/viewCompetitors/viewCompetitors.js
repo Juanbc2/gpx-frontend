@@ -54,7 +54,7 @@ const ViewCompetitors = () => {
 
   return (
     <div>
-      <h1 className="title">Visualización de eventos</h1>
+      <h1 className="title">Visualización de competidores</h1>
       <div className="content">
         <InfoTable
           title="Eventos"

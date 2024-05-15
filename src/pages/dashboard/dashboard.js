@@ -34,8 +34,8 @@ const Dashboard = () => {
           onClick={() => navigate("/stages")}
         />
         <CardButton
-          title="Gestión Corredores"
-          description="Gestionar los corredores de la competencia, como importar y editar los corredores"
+          title="Gestión Competidores"
+          description="Gestionar los competidores de la competencia, como importar y editar los competidores"
           onClick={() => navigate("/drivers")}
         />
       </div>

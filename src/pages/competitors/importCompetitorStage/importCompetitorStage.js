@@ -9,10 +9,14 @@ import {
   analyzeCompetitorGpxApi,
   getCompetitorsApi,
 } from "../../../services/api/competitors";
+import InfoTable from "../../../components/tables/infoTable/infoTable";
+import { getTypeKeyByValue } from "../../../utils/functions";
 
 const ImportCompetitorStage = () => {
   const [analyzingCompetitorGpxApi, setAnalyzingCompetitorGpxApi] =
     useState(false);
+
+  const [importedData, setImportedData] = useState(null);
   const handleImport = async () => {
     let readyToImport = true;
     if (loadedPath.length === 0) {
@@ -38,7 +42,14 @@ const ImportCompetitorStage = () => {
       };
       let result = await analyzeCompetitorGpxApi(gpxData);
       if (result !== null) {
-        console.log(JSON.parse(result));
+        let imported = JSON.parse(result);
+        imported.competitor = getTypeKeyByValue(
+          competitors,
+          "",
+          selectedCompetitor
+        );
+        imported.stage = getTypeKeyByValue(stages, "", selectedStage);
+        setImportedData(imported);
         notify("success", "Etapa importada correctamente.");
 
         resetConstants();
@@ -142,10 +153,76 @@ const ImportCompetitorStage = () => {
       <div className="content">
         <MainButton
           disabled={analyzingCompetitorGpxApi}
-          text={analyzingCompetitorGpxApi? "Analizando" : "Importar"}
+          text={analyzingCompetitorGpxApi ? "Analizando" : "Importar"}
           onClick={handleImport}
         />
       </div>
+      {importedData != null && (
+        <div className="results">
+          <h1>Información de la etapa</h1>
+          <span>
+            <b>Competidor:</b> {importedData.competitor.text}
+          </span>
+          <span>
+            <b>Etapa:</b> {importedData.stage.text}
+          </span>
+          <span>
+            <b>Tiempo sin penalización:</b> {importedData.tiempoCarrera}
+          </span>
+          <span>
+            <b>Tiempo total:</b> {importedData.total}
+          </span>
+
+          <InfoTable
+            title="Penalizaciones"
+            columns={[
+              "wpnumber",
+              "Causa",
+              "Coor (Lat)",
+              "Coor (Lon)",
+              "CoorUS (Lat)",
+              "CoorUS (Lon)",
+              "Penalizacion",
+              "Penalizacion Total",
+              "Valor Esperado",
+              "Valor Usuario",
+            ]}
+            columnsNames={[
+              "Waypoint",
+              "Causa",
+              "Coor (Lat)",
+              "Coor (Lon)",
+              "CoorUS (Lat)",
+              "CoorUS (Lon)",
+              "Penalización",
+              "Penalización Total",
+              "Valor Esperado",
+              "Valor Usuario",
+            ]}
+            rows={importedData.penalizacion}
+          />
+          <InfoTable
+            title="Ruta"
+            columns={[
+              "wpnumber",
+              "Coor (Lat)",
+              "Coor (Lon)",
+              "CoorUS (Lat)",
+              "CoorUS (Lon)",
+              "Radio",
+            ]}
+            columnsNames={[
+              "Waypoint",
+              "Coor (Lat)",
+              "Coor (Lon)",
+              "CoorUS (Lat)",
+              "CoorUS (Lon)",
+              "Radio",
+            ]}
+            rows={importedData.ruta}
+          />
+        </div>
+      )}
     </div>
   );
 };

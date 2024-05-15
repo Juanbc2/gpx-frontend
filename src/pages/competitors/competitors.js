@@ -40,7 +40,7 @@ const Competitors = () => {
       {selectedSubPage === "" && (
         <div>
           <div className="title">
-            <h1>Gestión de corredores</h1>
+            <h1>Gestión de competidores</h1>
           </div>
           <div className="options">
             <CardButton

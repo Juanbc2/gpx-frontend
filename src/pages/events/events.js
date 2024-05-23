@@ -14,7 +14,6 @@ const Events = () => {
   const [selectedSubPage, setSelectedSubPage] = React.useState("");
 
   useEffect(() => {
-    console.log(location.state);
     location.state != null &&
       location.state.subPage != null &&
       setSelectedSubPage(location.state.subPage);

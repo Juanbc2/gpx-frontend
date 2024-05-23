@@ -11,6 +11,7 @@ import {
 } from "../../../services/api/competitors";
 import InfoTable from "../../../components/tables/infoTable/infoTable";
 import { getTypeKeyByValue } from "../../../utils/functions";
+import { getEventsApi } from "../../../services/api/events";
 
 const ImportCompetitorStage = () => {
   const [analyzingCompetitorGpxApi, setAnalyzingCompetitorGpxApi] =
@@ -19,17 +20,23 @@ const ImportCompetitorStage = () => {
   const [importedData, setImportedData] = useState(null);
   const handleImport = async () => {
     let readyToImport = true;
-    if (loadedPath.length === 0) {
+    if (loadedPath === "") {
       notify("warning", "Cargue un archivo gpx.");
-      return (readyToImport = false);
-    }
-    if (!selectedStage) {
-      notify("warning", "Seleccione una etapa.");
       return (readyToImport = false);
     }
 
     if (!selectedCompetitor) {
       notify("warning", "Seleccione un competidor.");
+      return (readyToImport = false);
+    }
+
+    if (!selectedEvent) {
+      notify("warning", "Seleccione un evento.");
+      return (readyToImport = false);
+    }
+
+    if (!selectedStage) {
+      notify("warning", "Seleccione una etapa.");
       return (readyToImport = false);
     }
 
@@ -84,24 +91,37 @@ const ImportCompetitorStage = () => {
     }
   };
 
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedStage, setSelectedStage] = useState(null);
+  const [events, setEvents] = useState([]);
   const [stages, setStages] = useState([]);
-
-  const getStages = useCallback(async () => {
-    let result = await getStagesApi();
+  const getEvents = useCallback(async () => {
+    let result = await getEventsApi();
     if (result != null) {
-      let stages = result.map((stage) => {
+      let events = result.map((event) => {
+        let stages = event.stages.map((stage) => {
+          return {
+            value: stage.stageId,
+            text: stage.stageDetails,
+          };
+        });
         return {
-          value: stage.id,
-          text: stage.details,
-          waypoints: stage.waypoints,
+          value: event.id,
+          text: event.details,
+          stages: stages,
         };
       });
-      setStages(stages);
+      setEvents(events);
     } else {
       notify("warning", "No se encontraron etapas.");
     }
   }, []);
+
+  const handleSelectEvent = (eventId) => {
+    setSelectedEvent(eventId);
+    let event = events.find((event) => event.value === eventId);
+    setStages(event.stages);
+  };
 
   const [competitors, setCompetitors] = useState([]);
   const [selectedCompetitor, setSelectedCompetitor] = useState(null);
@@ -121,8 +141,8 @@ const ImportCompetitorStage = () => {
   }, []);
   useEffect(() => {
     getCompetitors();
-    getStages();
-  }, [getStages, getCompetitors]);
+    getEvents();
+  }, [getEvents, getCompetitors]);
 
   return (
     <div>
@@ -143,6 +163,14 @@ const ImportCompetitorStage = () => {
           onChange={(e) => setSelectedCompetitor(e.target.value)}
           options={competitors}
         />
+        <SimpleSelect
+          title="Evento"
+          value={selectedEvent}
+          onChange={(e) => handleSelectEvent(e.target.value)}
+          options={events}
+        />
+      </div>
+      <div className="content">
         <SimpleSelect
           title="Etapa"
           value={selectedStage}

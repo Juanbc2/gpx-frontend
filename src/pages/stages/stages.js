@@ -37,7 +37,7 @@ const Stages = () => {
           </div>
           <div className="options">
             <CardButton
-              title="Importar etapas"
+              title="Crear etapas"
               description="Carga de archivos XLSX de cada categoría"
               onClick={() => setSelectedSubPage("import")}
             />

@@ -31,7 +31,7 @@ const ViewEvents = () => {
           details: event.details,
           eventStartDate: event.eventStartDate,
           eventEndDate: event.eventEndDate,
-          stagesIds: event.stagesIds.toString(),
+          stages: event.stages.toString(),
           categoryIds: getTextFromIdsList(
             event.categoryIds,
             categories
@@ -59,7 +59,7 @@ const ViewEvents = () => {
             "details",
             "eventStartDate",
             "eventEndDate",
-            "stagesIds",
+            "stages",
             "categoryIds",
           ]}
           columnsNames={eventColumnsNames}

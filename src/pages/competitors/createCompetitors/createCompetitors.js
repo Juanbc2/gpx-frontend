@@ -23,7 +23,6 @@ const CreateCompetitors = () => {
         securePolicy: "",
       },
       currentStagesIds: [],
-      pastStagesIds: [],
     },
   });
 
@@ -45,28 +44,11 @@ const CreateCompetitors = () => {
       notify("warning", "La identificación es requerida.");
       readyToSubmit = false;
     }
-    if (competitorForm.values.vehicle.plate === "") {
-      notify("warning", "La placa es requerida.");
-      readyToSubmit = false;
-    }
-    if (competitorForm.values.vehicle.brand === "") {
-      notify("warning", "La marca es requerida.");
-      readyToSubmit = false;
-    }
 
-    if (competitorForm.values.vehicle.model === "") {
-      notify("warning", "El modelo es requerido.");
-      readyToSubmit = false;
-    }
     if (competitorForm.values.vehicle.categoryId === 0) {
       notify("warning", "La categoría es requerida.");
       readyToSubmit = false;
     }
-    if (competitorForm.values.vehicle.securePolicy === "") {
-      notify("warning", "La póliza de seguro es requerida.");
-      readyToSubmit = false;
-    }
-    console.log(competitorForm.values);
     if (readyToSubmit) {
       let competitorData = {
         name: competitorForm.values.name,
@@ -75,7 +57,6 @@ const CreateCompetitors = () => {
         identification: competitorForm.values.identification,
         vehicle: competitorForm.values.vehicle,
         currentStagesIds: [],
-        pastStagesIds: [],
       };
       let result = await createCompetitorApi(competitorData);
       if (result != null) {
@@ -101,7 +82,6 @@ const CreateCompetitors = () => {
         securePolicy: "",
       },
       currentStagesIds: [],
-      pastStagesIds: [],
     });
   };
 

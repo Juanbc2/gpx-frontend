@@ -61,7 +61,7 @@ const Header = () => {
                 });
               }}
             >
-              Importar etapas
+              Crear etapas
             </span>
             <span
               onClick={() => {
@@ -99,7 +99,7 @@ const Header = () => {
                 });
               }}
             >
-              Importar etapa
+              Importar GPX
             </span>
             <span
               onClick={() => {

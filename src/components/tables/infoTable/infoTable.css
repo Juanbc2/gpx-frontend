@@ -30,3 +30,7 @@
   border-bottom: 1px solid white;
   padding: 0.3rem;
 }
+
+.tableBox table tr:nth-child(odd) {
+  background-color: rgba(233, 61, 35, 0.473);
+}

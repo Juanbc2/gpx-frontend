@@ -169,7 +169,7 @@ const ImportStages = () => {
 
   return (
     <div>
-      <h1 className="title">Importe de matrices</h1>
+      <h1 className="title">Importe de matriz de etapa</h1>
       <div>
         <FileInput
           fileText="Seleccione el archivo XLSX de su matriz"

@@ -16,14 +16,19 @@ export const dateToInputDate = (date) => {
   return date.toISOString().split("T")[0];
 };
 
-export const getTextFromIdsList = (Ids, originalList) => {
+export const getTextFromIdsList = (
+  Ids,
+  originalList,
+  valueName = "value",
+  keyName = "text"
+) => {
   let categoriesNames = [];
   Ids.map((categoryId) => {
     let category = originalList.find(
-      (category) => category.value === categoryId
+      (category) => category[valueName] === categoryId
     );
     return category !== undefined
-      ? categoriesNames.push(`(${category.text})`)
+      ? categoriesNames.push(`(${category[keyName]})`)
       : categoriesNames.push("(NA)");
   });
   return categoriesNames;

@@ -9,7 +9,6 @@ import { notify } from "../../../utils/toastify";
 import CheckboxSelect from "../../../components/selects/checkboxSelect/checkboxSelect";
 import SimpleSelect from "../../../components/selects/simpleSelect/simpleSelect";
 import { getEventsApi } from "../../../services/api/events";
-import { categories } from "../../../services/data/frontInfo";
 import {
   dateToInputDate,
   decimalTimeToTime,
@@ -18,6 +17,7 @@ import {
 } from "../../../utils/functions";
 import { createStageApi } from "../../../services/api/stages";
 import DateInput from "../../../components/inputs/dateInput/dateInput";
+import { getCategoriesApi } from "../../../services/api/categories";
 
 const ImportStages = () => {
   const handleImport = () => {
@@ -38,6 +38,7 @@ const ImportStages = () => {
 
     if (readyToImport) {
       let stageData = {
+        name: name,
         eventId: selectedEvent,
         details: details,
         categoriesIds: getValuesFromDictionary(selectedCategories, "value"),
@@ -111,6 +112,7 @@ const ImportStages = () => {
   const [eventCategories, setEventCategories] = React.useState([]);
   const [selectedEvent, setSelectedEvent] = React.useState(null);
   const [events, setEvents] = React.useState([]);
+  const [name, setName] = React.useState("");
   const [details, setDetails] = React.useState("");
   const [date, setDate] = React.useState(dateToInputDate(new Date()));
 
@@ -121,7 +123,7 @@ const ImportStages = () => {
         return {
           value: event.id,
           text: event.name,
-          categoryIds: event.categoryIds,
+          categoriesIds: event.categoriesIds,
         };
       });
       setEvents(events);
@@ -130,12 +132,24 @@ const ImportStages = () => {
     }
   }, []);
 
+  const [categories, setCategories] = React.useState([]);
+  const getCategories = async () => {
+    const result = await getCategoriesApi();
+    if (result != null) {
+      setCategories(result);
+    } else notify("warning", "Error al obtener las categorías.");
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   const handleSelectedEvent = (value) => {
     let event = events.find((event) => {
-      return event.value === value;
+      return event.value === parseInt(value);
     });
     if (event === undefined) return notify("warning", "Evento no encontrado.");
-    let categories = setCategoriesOptions(event.categoryIds);
+    let categories = setCategoriesOptions(event.categoriesIds);
     if (categories.length === 0)
       return notify("warning", "El evento no tiene categorías asignadas.");
     setSelectedEvent(value);
@@ -145,11 +159,11 @@ const ImportStages = () => {
   const setCategoriesOptions = (categoriesIds) => {
     let categoriesOptions = [];
     categoriesIds.map((categoryId) => {
-      let category = valueInArray(categoryId, categories);
+      let category = valueInArray(categoryId, categories, "id");
       if (category !== undefined) {
         categoriesOptions.push({
-          value: category.value,
-          text: category.text,
+          value: category.id,
+          text: category.name,
         });
       }
       return null;
@@ -179,6 +193,20 @@ const ImportStages = () => {
         />
       </div>
       <div className="content">
+        <TextInput
+          title="Nombre"
+          placeholder="Nombre de la etapa"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+        />
+        <TextInput
+          title="Detalles"
+          placeholder="Detalles de la etapa"
+          onChange={(e) => setDetails(e.target.value)}
+          value={details}
+        />
+      </div>
+      <div className="content">
         <SimpleSelect
           title="Evento"
           value={selectedEvent}
@@ -200,12 +228,6 @@ const ImportStages = () => {
             setDate(event.target.value);
           }}
           value={date}
-        />
-        <TextInput
-          title="Detalles"
-          placeholder="Detalles de la etapa"
-          onChange={(e) => setDetails(e.target.value)}
-          value={details}
         />
       </div>
       <div className="content">

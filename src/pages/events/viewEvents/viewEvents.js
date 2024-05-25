@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { getEventsApi } from "../../../services/api/events";
 import { notify } from "../../../utils/toastify";
 import InfoTable from "../../../components/tables/infoTable/infoTable";
-import { categories } from "../../../services/data/frontInfo";
 import { getTextFromIdsList } from "../../../utils/functions";
+import { getCategoriesApi } from "../../../services/api/categories";
 
 const ViewEvents = () => {
   const [events, setEvents] = React.useState([]);
+  const [categories, setCategories] = React.useState([]);
 
   const eventColumnsNames = [
     "ID",
@@ -15,11 +16,20 @@ const ViewEvents = () => {
     "Detalles",
     "Fecha de inicio",
     "Fecha de fin",
-    "Etapas",
     "Categorías",
   ];
 
-  const getEvents = useCallback(async () => {
+  const getCategories = async () => {
+    const result = await getCategoriesApi();
+    if (result != null) {
+      setCategories(result);
+    } else notify("warning", "Error al obtener las categorías.");
+  };
+
+  const getEvents = async () => {
+    if (categories.length === 0) {
+      return;
+    }
     const result = await getEventsApi();
     if (result != null) {
       let events = [];
@@ -31,20 +41,25 @@ const ViewEvents = () => {
           details: event.details,
           eventStartDate: event.eventStartDate,
           eventEndDate: event.eventEndDate,
-          stages: event.stages.toString(),
-          categoryIds: getTextFromIdsList(
-            event.categoryIds,
-            categories
-          ).toString(),
+          categoriesIds: getTextFromIdsList(
+            event.categoriesIds,
+            categories,
+            "id",
+            "name"
+          ).join(),
         });
       });
       setEvents(events);
     } else notify("warning", "Error al obtener los eventos.");
+  };
+
+  useEffect(() => {
+    getCategories();
   }, []);
 
   useEffect(() => {
     getEvents();
-  }, [getEvents]);
+  }, [categories]);
 
   return (
     <div>
@@ -59,8 +74,7 @@ const ViewEvents = () => {
             "details",
             "eventStartDate",
             "eventEndDate",
-            "stages",
-            "categoryIds",
+            "categoriesIds",
           ]}
           columnsNames={eventColumnsNames}
           rows={events}

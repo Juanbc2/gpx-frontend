@@ -1,11 +1,9 @@
 import React from "react";
 import "./createCompetitors.css";
 import TextInput from "../../../components/inputs/textInput/textInput";
-import { categories } from "../../../services/data/frontInfo";
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { useForm } from "@mantine/form";
 import { notify } from "../../../utils/toastify";
-import SimpleSelect from "../../../components/selects/simpleSelect/simpleSelect";
 import { createCompetitorApi } from "../../../services/api/competitors";
 
 const CreateCompetitors = () => {
@@ -15,14 +13,6 @@ const CreateCompetitors = () => {
       lastName: "",
       number: "",
       identification: "",
-      vehicle: {
-        brand: "",
-        model: "",
-        categoryId: 0,
-        plate: "",
-        securePolicy: "",
-      },
-      currentStagesIds: [],
     },
   });
 
@@ -45,18 +35,12 @@ const CreateCompetitors = () => {
       readyToSubmit = false;
     }
 
-    if (competitorForm.values.vehicle.categoryId === 0) {
-      notify("warning", "La categoría es requerida.");
-      readyToSubmit = false;
-    }
     if (readyToSubmit) {
       let competitorData = {
         name: competitorForm.values.name,
         lastName: competitorForm.values.lastName,
         number: competitorForm.values.number,
         identification: competitorForm.values.identification,
-        vehicle: competitorForm.values.vehicle,
-        currentStagesIds: [],
       };
       let result = await createCompetitorApi(competitorData);
       if (result != null) {
@@ -74,14 +58,6 @@ const CreateCompetitors = () => {
       lastName: "",
       number: "",
       identification: "",
-      vehicle: {
-        brand: "",
-        model: "",
-        categoryId: 0,
-        plate: "",
-        securePolicy: "",
-      },
-      currentStagesIds: [],
     });
   };
 
@@ -126,56 +102,6 @@ const CreateCompetitors = () => {
               competitorForm.setFieldValue("number", event.target.value);
             }}
             value={competitorForm.values.number}
-          />
-        </div>
-        <div className="subgroup">
-          <h2>Vehículo</h2>
-          <TextInput
-            title="Placa"
-            placeholder="Placa"
-            onChange={(event) => {
-              competitorForm.setFieldValue("vehicle.plate", event.target.value);
-            }}
-            value={competitorForm.values.vehicle.plate}
-          />
-          <TextInput
-            title="Marca"
-            placeholder="Marca"
-            onChange={(event) => {
-              competitorForm.setFieldValue("vehicle.brand", event.target.value);
-            }}
-            value={competitorForm.values.vehicle.brand}
-          />
-          <TextInput
-            title="Modelo"
-            placeholder="Modelo"
-            onChange={(event) => {
-              competitorForm.setFieldValue("vehicle.model", event.target.value);
-            }}
-            value={competitorForm.values.vehicle.model}
-          />
-          <SimpleSelect
-            title="Categoría"
-            defaultOptionText="Seleccione una(s) categoría(s)..."
-            options={categories}
-            value={competitorForm.values.vehicle.categoryId}
-            onChange={(e) => {
-              competitorForm.setFieldValue(
-                "vehicle.categoryId",
-                e.target.value
-              );
-            }}
-          />
-          <TextInput
-            title="Póliza de seguro"
-            placeholder="Póliza de seguro"
-            onChange={(event) => {
-              competitorForm.setFieldValue(
-                "vehicle.securePolicy",
-                event.target.value
-              );
-            }}
-            value={competitorForm.values.vehicle.securePolicy}
           />
         </div>
       </div>

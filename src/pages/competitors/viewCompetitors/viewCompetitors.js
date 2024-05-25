@@ -1,50 +1,33 @@
 import React, { useCallback, useEffect } from "react";
-import { getEventsApi } from "../../../services/api/events";
 import { notify } from "../../../utils/toastify";
 import InfoTable from "../../../components/tables/infoTable/infoTable";
-import { categories } from "../../../services/data/frontInfo";
-import {
-  getTextFromIdsList,
-  getTypeKeyByValue,
-} from "../../../utils/functions";
+
 import { getCompetitorsApi } from "../../../services/api/competitors";
 
 const ViewCompetitors = () => {
   const [competitors, setCompetitors] = React.useState([]);
 
   const CompetitorColumnsNames = [
-    "Nombre completo",
+    "No. competidor",
+    "Nombre",
+    "Apellidos",
     "Identificación",
-    "Número de competidor",
-    "Marca del vehículo",
-    "Modelo del vehículo",
-    "Placa del vehículo",
-    "Póliza de seguro",
-    "Categoría",
   ];
 
   const getCompetitors = useCallback(async () => {
     const result = await getCompetitorsApi();
     if (result != null) {
-      let events = [];
-      result.map((event) => {
-        return events.push({
-          id: event.id,
-          name: event.name + " " + event.lastName,
-          number: event.number,
-          identification: event.identification,
-          vehicleBrand: event.vehicle.brand,
-          vehicleModel: event.vehicle.model,
-          vehiclePlate: event.vehicle.plate,
-          insurancePolicy: event.vehicle.securePolicy,
-          category: getTypeKeyByValue(
-            categories,
-            "text",
-            event.vehicle.categoryId
-          ),
+      let competitors = [];
+      result.map((competitor) => {
+        return competitors.push({
+          id: competitor.id,
+          name: competitor.name,
+          lastName: competitor.lastName,
+          number: competitor.number,
+          identification: competitor.identification,
         });
       });
-      setCompetitors(events);
+      setCompetitors(competitors);
     } else notify("warning", "Error al obtener los eventos.");
   }, []);
 
@@ -58,16 +41,7 @@ const ViewCompetitors = () => {
       <div className="content">
         <InfoTable
           title="Eventos"
-          columns={[
-            "name",
-            "identification",
-            "number",
-            "vehicleBrand",
-            "vehicleModel",
-            "vehiclePlate",
-            "insurancePolicy",
-            "category",
-          ]}
+          columns={["number", "name", "lastName", "identification"]}
           columnsNames={CompetitorColumnsNames}
           rows={competitors}
         />

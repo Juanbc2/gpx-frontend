@@ -3,15 +3,17 @@ import "./viewStages.css";
 import { getStagesApi } from "../../../services/api/stages";
 import InfoTable from "../../../components/tables/infoTable/infoTable";
 import { getEventsApi } from "../../../services/api/events";
-import { categories } from "../../../services/data/frontInfo";
 import { getTextFromIdsList } from "../../../utils/functions";
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import ViewWaypoint from "../viewWaypoint/viewWaypoint";
+import { getCategoriesApi } from "../../../services/api/categories";
+import { notify } from "../../../utils/toastify";
 
 const ViewStages = () => {
   const [stages, setStages] = React.useState([]);
-
+  const [categories, setCategories] = React.useState([]);
   const [events, setEvents] = React.useState([]);
+
   const getEvents = async () => {
     const result = await getEventsApi();
     if (result != null) {
@@ -26,6 +28,13 @@ const ViewStages = () => {
     }
   };
 
+  const getCategories = async () => {
+    const result = await getCategoriesApi();
+    if (result != null) {
+      setCategories(result);
+    } else notify("warning", "Error al obtener las categorías.");
+  };
+
   const getEventName = (eventId) => {
     let event = events.find((event) => {
       return event.value === eventId;
@@ -34,6 +43,7 @@ const ViewStages = () => {
   };
 
   const getStages = async () => {
+    if (categories.length === 0 || events.length === 0) return;
     const result = await getStagesApi();
     if (result != null) {
       let stages = [];
@@ -44,17 +54,16 @@ const ViewStages = () => {
           details: stage.details,
           categoriesIds: getTextFromIdsList(
             stage.categoriesIds,
-            categories
-          ).toString(),
+            categories,
+            "id",
+            "name"
+          ).join(),
           stageDate: stage.stageDate,
           waypoints: (
             <MainButton
               text={"Ver Waypoints"}
               onClick={() => {
                 handleSelectedStage(stage);
-                // navigate("/viewWaypoint", {
-                //   state: { stage: stage },
-                // });
               }}
             >
               Ver waypoints
@@ -68,13 +77,14 @@ const ViewStages = () => {
 
   useEffect(() => {
     getEvents();
+    getCategories();
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     getStages();
     // eslint-disable-next-line
-  }, [events]);
+  }, [categories, events]);
 
   const [viewWaypointShow, setViewWaypointShow] = React.useState(false);
   const [selectedStage, setSelectedStage] = React.useState(null);

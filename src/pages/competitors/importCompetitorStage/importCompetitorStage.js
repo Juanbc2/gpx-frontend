@@ -4,14 +4,11 @@ import FileInput from "../../../components/inputs/fileInput/fileInput";
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { notify } from "../../../utils/toastify";
 import SimpleSelect from "../../../components/selects/simpleSelect/simpleSelect";
-import { getStagesApi } from "../../../services/api/stages";
-import {
-  analyzeCompetitorGpxApi,
-  getCompetitorsApi,
-} from "../../../services/api/competitors";
+import { analyzeCompetitorGpxApi } from "../../../services/api/competitors";
 import InfoTable from "../../../components/tables/infoTable/infoTable";
 import { getTypeKeyByValue } from "../../../utils/functions";
-import { getEventsApi } from "../../../services/api/events";
+import { getEventsWithStagesApi } from "../../../services/api/events";
+import { getVehiclesApi } from "../../../services/api/vehicles";
 
 const ImportCompetitorStage = () => {
   const [analyzingCompetitorGpxApi, setAnalyzingCompetitorGpxApi] =
@@ -25,8 +22,8 @@ const ImportCompetitorStage = () => {
       return (readyToImport = false);
     }
 
-    if (!selectedCompetitor) {
-      notify("warning", "Seleccione un competidor.");
+    if (!selectedVehicle) {
+      notify("warning", "Seleccione un vehículo.");
       return (readyToImport = false);
     }
 
@@ -44,17 +41,13 @@ const ImportCompetitorStage = () => {
       setAnalyzingCompetitorGpxApi(true);
       let gpxData = {
         filePath: loadedPath,
-        competitorId: selectedCompetitor,
-        stageId: selectedStage,
+        vehicleId: parseInt(selectedVehicle),
+        stageId: parseInt(selectedStage),
       };
       let result = await analyzeCompetitorGpxApi(gpxData);
       if (result !== null) {
         let imported = JSON.parse(result);
-        imported.competitor = getTypeKeyByValue(
-          competitors,
-          "",
-          selectedCompetitor
-        );
+        imported.competitor = getTypeKeyByValue(vehicles, "", selectedVehicle);
         imported.stage = getTypeKeyByValue(stages, "", selectedStage);
         setImportedData(imported);
         notify("success", "Etapa importada correctamente.");
@@ -76,7 +69,7 @@ const ImportCompetitorStage = () => {
   };
   const resetConstants = () => {
     setLoadedPath("");
-    setSelectedCompetitor(null);
+    setSelectedVehicle(null);
     setSelectedStage(null);
     handleResetFileInput();
   };
@@ -96,13 +89,13 @@ const ImportCompetitorStage = () => {
   const [events, setEvents] = useState([]);
   const [stages, setStages] = useState([]);
   const getEvents = useCallback(async () => {
-    let result = await getEventsApi();
+    let result = await getEventsWithStagesApi();
     if (result != null) {
       let events = result.map((event) => {
         let stages = event.stages.map((stage) => {
           return {
-            value: stage.stageId,
-            text: stage.stageDetails,
+            value: stage.id,
+            text: stage.name,
           };
         });
         return {
@@ -119,30 +112,39 @@ const ImportCompetitorStage = () => {
 
   const handleSelectEvent = (eventId) => {
     setSelectedEvent(eventId);
-    let event = events.find((event) => event.value === eventId);
+    let event = events.find((event) => event.value === parseInt(eventId));
     setStages(event.stages);
   };
 
-  const [competitors, setCompetitors] = useState([]);
-  const [selectedCompetitor, setSelectedCompetitor] = useState(null);
-  const getCompetitors = useCallback(async () => {
-    let result = await getCompetitorsApi();
+  const [vehicles, setVehicles] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const getVehicles = useCallback(async () => {
+    let result = await getVehiclesApi();
     if (result != null) {
-      let competitors = result.map((competitor) => {
+      let vehicles = result.map((vehicle) => {
         return {
-          value: competitor.id,
-          text: competitor.name + " " + competitor.lastName,
+          value: vehicle.id,
+          text:
+            vehicle.competitor.name +
+            " " +
+            vehicle.competitor.lastName +
+            " - [" +
+            vehicle.plate +
+            "] - " +
+            vehicle.brand +
+            " " +
+            vehicle.model,
         };
       });
-      setCompetitors(competitors);
+      setVehicles(vehicles);
     } else {
-      notify("warning", "No se encontraron competidores.");
+      notify("warning", "No se encontraron vehículos.");
     }
   }, []);
   useEffect(() => {
-    getCompetitors();
+    getVehicles();
     getEvents();
-  }, [getEvents, getCompetitors]);
+  }, [getEvents, getVehicles]);
 
   return (
     <div>
@@ -158,10 +160,10 @@ const ImportCompetitorStage = () => {
       </div>
       <div className="content">
         <SimpleSelect
-          title="Competidor"
-          value={selectedCompetitor}
-          onChange={(e) => setSelectedCompetitor(e.target.value)}
-          options={competitors}
+          title="Competidor/Vehículo"
+          value={selectedVehicle}
+          onChange={(e) => setSelectedVehicle(e.target.value)}
+          options={vehicles}
         />
         <SimpleSelect
           title="Evento"
@@ -195,10 +197,10 @@ const ImportCompetitorStage = () => {
             <b>Etapa:</b> {importedData.stage.text}
           </span>
           <span>
-            <b>Tiempo sin penalización:</b> {importedData.tiempoCarrera}
+            <b>Tiempo sin penalización:</b> {importedData.penaltieTime}
           </span>
           <span>
-            <b>Tiempo total:</b> {importedData.total}
+            <b>Tiempo total:</b> {importedData.routeTime}
           </span>
 
           <InfoTable
@@ -227,7 +229,7 @@ const ImportCompetitorStage = () => {
               "Valor Esperado",
               "Valor Usuario",
             ]}
-            rows={importedData.penalizacion}
+            rows={importedData.penalties}
           />
           <InfoTable
             title="Ruta"
@@ -247,7 +249,7 @@ const ImportCompetitorStage = () => {
               "CoorUS (Lon)",
               "Radio",
             ]}
-            rows={importedData.ruta}
+            rows={importedData.route}
           />
         </div>
       )}

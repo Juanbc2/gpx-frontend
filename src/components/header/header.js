@@ -120,6 +120,44 @@ const Header = () => {
               Ver competidores
             </span>
           </HeaderOption>
+          <HeaderOption title="Vehículos" mainRoute="/vehicles">
+            <span
+              onClick={() => {
+                navigate("/vehicles", {
+                  state: { subPage: "create" },
+                });
+              }}
+            >
+              Crear vehículos
+            </span>
+            <span
+              onClick={() => {
+                navigate("/vehicles", {
+                  state: { subPage: "edit" },
+                });
+              }}
+            >
+              Editar vehículos
+            </span>
+            <span
+              onClick={() => {
+                navigate("/vehicles", {
+                  state: { subPage: "view" },
+                });
+              }}
+            >
+              Ver vehículos
+            </span>
+            <span
+              onClick={() => {
+                navigate("/vehicles", {
+                  state: { subPage: "categories" },
+                });
+              }}
+            >
+              Categorías de vehículos
+            </span>
+          </HeaderOption>
           <HeaderOption title="Resultados" mainRoute="/"></HeaderOption>
           {/* temporal */}
         </ul>

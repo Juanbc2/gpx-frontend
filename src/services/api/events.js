@@ -28,6 +28,19 @@ export const getEventByIdApi = async (id) => {
   }
 };
 
+export const getEventsWithStagesApi = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/events/stages/`);
+    if (!response.ok) {
+      notify("error", "Error al obtener las etapas.");
+      return [];
+    }
+    return response.json();
+  } catch (error) {
+    notify("error", "Error al obtener las etapas.");
+  }
+};
+
 export const createEventApi = async (event) => {
   try {
     const response = await fetch(`${apiUrl}/events/`, {

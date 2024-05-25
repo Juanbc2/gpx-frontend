@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./createEvent.css";
 import TextInput from "../../../components/inputs/textInput/textInput";
 import DateInput from "../../../components/inputs/dateInput/dateInput";
 import CheckboxSelect from "../../../components/selects/checkboxSelect/checkboxSelect";
-import { categories } from "../../../services/data/frontInfo";
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { useForm } from "@mantine/form";
 import { notify } from "../../../utils/toastify";
 import { createEventApi } from "../../../services/api/events";
 import { dateToInputDate } from "../../../utils/functions";
+import { getCategoriesApi } from "../../../services/api/categories";
 
 const CreateEvent = () => {
   const handleSelectedCategories = (values) => {
@@ -58,7 +58,7 @@ const CreateEvent = () => {
       location: eventForm.values.location,
       eventStartDate: eventForm.values.startDate,
       eventEndDate: eventForm.values.endDate,
-      categoryIds: eventForm.values.categories,
+      categoriesIds: eventForm.values.categories,
     };
 
     let result = await createEventApi(eventData);
@@ -69,6 +69,24 @@ const CreateEvent = () => {
       notify("warning", "No se pudo crear el evento.");
     }
   };
+
+  const [categories, setCategories] = React.useState([]);
+  const getCategories = async () => {
+    const result = await getCategoriesApi();
+    if (result != null) {
+      let categories = result.map((category) => {
+        return {
+          value: category.id,
+          text: category.name,
+        };
+      });
+      setCategories(categories);
+    } else notify("warning", "Error al obtener las categorías.");
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   const resetConstants = () => {
     eventForm.setValues({

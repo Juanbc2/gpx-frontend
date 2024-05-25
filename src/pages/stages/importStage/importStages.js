@@ -92,9 +92,9 @@ const ImportStages = () => {
   };
 
   const getLoadedInfo = (rows) => {
-    let products = [];
+    let stages = [];
     rows.map((row) => {
-      return products.push({
+      return stages.push({
         wpnumber: row["wpnumber"],
         latitude: row["latitude"],
         longitude: row["longitude"],
@@ -106,7 +106,7 @@ const ImportStages = () => {
         neutralization: decimalTimeToTime(row["neutralizationT"]),
       });
     });
-    return products;
+    return stages;
   };
 
   const [eventCategories, setEventCategories] = React.useState([]);

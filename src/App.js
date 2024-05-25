@@ -9,6 +9,7 @@ import Events from "./pages/events/events";
 import Login from "./pages/login/login";
 import Competitors from "./pages/competitors/competitors";
 import Vehicles from "./pages/vehicles/vehicles";
+import Results from "./pages/results/results";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/drivers" element={<Competitors />} />
         <Route path="/vehicles" element={<Vehicles />} />
+        <Route path="/results" element={<Results />} />
       </Routes>
     </div>
   );

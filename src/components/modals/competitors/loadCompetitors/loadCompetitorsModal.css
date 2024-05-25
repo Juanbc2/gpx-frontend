@@ -1,0 +1,16 @@
+.modalBody {
+  background-color: white;
+  width: fit-content;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 auto;
+  margin-top: 5rem;
+}
+
+

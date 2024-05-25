@@ -158,7 +158,7 @@ const Header = () => {
               Categorías de vehículos
             </span>
           </HeaderOption>
-          <HeaderOption title="Resultados" mainRoute="/"></HeaderOption>
+          <HeaderOption title="Resultados" mainRoute="/results"></HeaderOption>
           {/* temporal */}
         </ul>
       </div>

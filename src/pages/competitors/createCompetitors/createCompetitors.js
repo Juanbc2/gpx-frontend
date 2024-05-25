@@ -5,6 +5,7 @@ import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { useForm } from "@mantine/form";
 import { notify } from "../../../utils/toastify";
 import { createCompetitorApi } from "../../../services/api/competitors";
+import LoadCompetitorsModal from "../../../components/modals/competitors/loadCompetitors/loadCompetitorsModal";
 
 const CreateCompetitors = () => {
   const competitorForm = useForm({
@@ -61,6 +62,10 @@ const CreateCompetitors = () => {
     });
   };
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div>
       <h1 className="title">Creación de competidores</h1>
@@ -107,7 +112,9 @@ const CreateCompetitors = () => {
       </div>
       <div className="content">
         <MainButton text="Crear Competidor" onClick={handleSubmit} />
+        <MainButton text="Importar Competidores" onClick={handleOpen} />
       </div>
+      {open && <LoadCompetitorsModal open={open} handleClose={handleClose} />}
     </div>
   );
 };

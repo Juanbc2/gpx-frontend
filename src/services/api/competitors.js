@@ -47,6 +47,25 @@ export const createCompetitorApi = async (event) => {
   }
 };
 
+export const bulkCreateCompetitorsApi = async (events) => {
+  try {
+    const response = await fetch(`${apiUrl}/competitors/bulk/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(events),
+    });
+    if (!response.ok) {
+      notify("error", "Error al crear los competidores.");
+      return [];
+    }
+    return response.json();
+  } catch (error) {
+    notify("error", "Error al crear los competidores.");
+  }
+};
+
 export const updateCompetitorApi = async (event) => {
   try {
     const response = await fetch(`${apiUrl}/competitors/${event.id}/`, {
@@ -99,3 +118,5 @@ export const analyzeCompetitorGpxApi = async (gpxData) => {
     notify("error", "Error al analizar el gpx.");
   }
 };
+
+

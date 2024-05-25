@@ -47,11 +47,18 @@ const ImportCompetitorStage = () => {
       let result = await analyzeCompetitorGpxApi(gpxData);
       if (result !== null) {
         let imported = JSON.parse(result);
-        imported.competitor = getTypeKeyByValue(vehicles, "", selectedVehicle);
-        imported.stage = getTypeKeyByValue(stages, "", selectedStage);
+        imported.competitor = getTypeKeyByValue(
+          vehicles,
+          "text",
+          parseInt(selectedVehicle)
+        );
+        imported.stage = getTypeKeyByValue(
+          stages,
+          "text",
+          parseInt(selectedStage)
+        );
         setImportedData(imported);
         notify("success", "Etapa importada correctamente.");
-
         resetConstants();
       } else {
         notify("error", "Error al importar la etapa.");
@@ -191,10 +198,10 @@ const ImportCompetitorStage = () => {
         <div className="results">
           <h1>Información de la etapa</h1>
           <span>
-            <b>Competidor:</b> {importedData.competitor.text}
+            <b>Competidor:</b> {importedData.competitor}
           </span>
           <span>
-            <b>Etapa:</b> {importedData.stage.text}
+            <b>Etapa:</b> {importedData.stage}
           </span>
           <span>
             <b>Tiempo sin penalización:</b> {importedData.penaltieTime}

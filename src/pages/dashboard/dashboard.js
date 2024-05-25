@@ -38,6 +38,16 @@ const Dashboard = () => {
           description="Gestionar los competidores de la competencia, como importar y editar los competidores"
           onClick={() => navigate("/drivers")}
         />
+        <CardButton
+          title="Gestión de Vehículos"
+          description="Gestionar los vehículos de la competencia, como crear y editar los vehículos"
+          onClick={() => navigate("/vehicles")}
+        />
+        <CardButton
+          title="Gestión de Resultados"
+          description="Gestionar los resultados de la competencia, como importar y editar los resultados"
+          onClick={() => navigate("/results")}
+        />
       </div>
     </div>
   );

@@ -24,12 +24,10 @@ const Results = () => {
       selectedVehicle,
       selectedStage
     );
-    console.log(result);
     if (result !== null) {
       let imported = result;
       let competitor = getTypeKeyByValue(vehicles, "", imported.vehicleId);
       let stage = getTypeKeyByValue(stages, "", imported.stageId);
-      console.log(competitor, stage);
       imported.competitor = competitor.text;
       imported.stage = stage.text;
       imported.penalties = JSON.parse(imported.penalties);

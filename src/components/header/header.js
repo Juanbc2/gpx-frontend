@@ -17,151 +17,159 @@ const Header = () => {
 
   return (
     <div className="header">
-      <div className="brand" onClick={() => navigate("/")}>
+      <div
+        className="brand"
+        onClick={() => tokenVerified && navigate("/dashboard")}
+      >
         <h1>DARIEN</h1>
         <hr></hr>
         <h3>RALLY ANALYZER</h3>
       </div>
-      <div>
-        <ul className="menu">
-          <HeaderOption title="Eventos" mainRoute="/events">
-            <span
-              onClick={() => {
-                navigate("/events", {
-                  state: { subPage: "import" },
-                });
-              }}
-            >
-              Crear evento
-            </span>
-            <span
-              onClick={() => {
-                navigate("/events", {
-                  state: { subPage: "edit" },
-                });
-              }}
-            >
-              Editar eventos
-            </span>
-            <span
-              onClick={() => {
-                navigate("/events", {
-                  state: { subPage: "view" },
-                });
-              }}
-            >
-              Visualización de eventos
-            </span>
-          </HeaderOption>
-          <HeaderOption title="Etapas" mainRoute="/stages">
-            <span
-              onClick={() => {
-                navigate("/stages", {
-                  state: { subPage: "import" },
-                });
-              }}
-            >
-              Crear etapas
-            </span>
-            <span
-              onClick={() => {
-                navigate("/stages", {
-                  state: { subPage: "edit" },
-                });
-              }}
-            >
-              Editar etapas
-            </span>
-            <span
-              onClick={() => {
-                navigate("/stages", {
-                  state: { subPage: "view" },
-                });
-              }}
-            >
-              Ver etapas
-            </span>
-          </HeaderOption>
-          <HeaderOption title="Competidores" mainRoute="/drivers">
-            <span
-              onClick={() => {
-                navigate("/drivers", {
-                  state: { subPage: "create" },
-                });
-              }}
-            >
-              Crear competidores
-            </span>
-            <span
-              onClick={() => {
-                navigate("/drivers", {
-                  state: { subPage: "import" },
-                });
-              }}
-            >
-              Importar GPX
-            </span>
-            <span
-              onClick={() => {
-                navigate("/drivers", {
-                  state: { subPage: "edit" },
-                });
-              }}
-            >
-              Editar competidores
-            </span>
-            <span
-              onClick={() => {
-                navigate("/drivers", {
-                  state: { subPage: "view" },
-                });
-              }}
-            >
-              Ver competidores
-            </span>
-          </HeaderOption>
-          <HeaderOption title="Vehículos" mainRoute="/vehicles">
-            <span
-              onClick={() => {
-                navigate("/vehicles", {
-                  state: { subPage: "create" },
-                });
-              }}
-            >
-              Crear vehículos
-            </span>
-            <span
-              onClick={() => {
-                navigate("/vehicles", {
-                  state: { subPage: "edit" },
-                });
-              }}
-            >
-              Editar vehículos
-            </span>
-            <span
-              onClick={() => {
-                navigate("/vehicles", {
-                  state: { subPage: "view" },
-                });
-              }}
-            >
-              Ver vehículos
-            </span>
-            <span
-              onClick={() => {
-                navigate("/vehicles", {
-                  state: { subPage: "categories" },
-                });
-              }}
-            >
-              Categorías de vehículos
-            </span>
-          </HeaderOption>
-          <HeaderOption title="Resultados" mainRoute="/results"></HeaderOption>
-          {/* temporal */}
-        </ul>
-      </div>
+      {tokenVerified && (
+        <div>
+          <ul className="menu">
+            <HeaderOption title="Eventos" mainRoute="/events">
+              <span
+                onClick={() => {
+                  navigate("/events", {
+                    state: { subPage: "import" },
+                  });
+                }}
+              >
+                Crear evento
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/events", {
+                    state: { subPage: "edit" },
+                  });
+                }}
+              >
+                Editar eventos
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/events", {
+                    state: { subPage: "view" },
+                  });
+                }}
+              >
+                Visualización de eventos
+              </span>
+            </HeaderOption>
+            <HeaderOption title="Etapas" mainRoute="/stages">
+              <span
+                onClick={() => {
+                  navigate("/stages", {
+                    state: { subPage: "import" },
+                  });
+                }}
+              >
+                Crear etapas
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/stages", {
+                    state: { subPage: "edit" },
+                  });
+                }}
+              >
+                Editar etapas
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/stages", {
+                    state: { subPage: "view" },
+                  });
+                }}
+              >
+                Ver etapas
+              </span>
+            </HeaderOption>
+            <HeaderOption title="Competidores" mainRoute="/drivers">
+              <span
+                onClick={() => {
+                  navigate("/drivers", {
+                    state: { subPage: "create" },
+                  });
+                }}
+              >
+                Crear competidores
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/drivers", {
+                    state: { subPage: "import" },
+                  });
+                }}
+              >
+                Importar GPX
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/drivers", {
+                    state: { subPage: "edit" },
+                  });
+                }}
+              >
+                Editar competidores
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/drivers", {
+                    state: { subPage: "view" },
+                  });
+                }}
+              >
+                Ver competidores
+              </span>
+            </HeaderOption>
+            <HeaderOption title="Vehículos" mainRoute="/vehicles">
+              <span
+                onClick={() => {
+                  navigate("/vehicles", {
+                    state: { subPage: "create" },
+                  });
+                }}
+              >
+                Crear vehículos
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/vehicles", {
+                    state: { subPage: "edit" },
+                  });
+                }}
+              >
+                Editar vehículos
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/vehicles", {
+                    state: { subPage: "view" },
+                  });
+                }}
+              >
+                Ver vehículos
+              </span>
+              <span
+                onClick={() => {
+                  navigate("/vehicles", {
+                    state: { subPage: "categories" },
+                  });
+                }}
+              >
+                Categorías de vehículos
+              </span>
+            </HeaderOption>
+            <HeaderOption
+              title="Resultados"
+              mainRoute="/results"
+            ></HeaderOption>
+            {/* temporal */}
+          </ul>
+        </div>
+      )}
       {tokenVerified ? (
         <div className="outButton" onClick={handleLogout}>
           Salir <FaArrowRight size={15} />

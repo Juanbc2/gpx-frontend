@@ -21,16 +21,9 @@ const Competitors = () => {
   }, [location]);
 
   const tokenVerified = localStorage.getItem("token");
-
   useEffect(() => {
     if (tokenVerified == null) {
       notify("error", "No tiene permisos para acceder a esta página");
-      navigate("/");
-    }
-  }, [tokenVerified]);
-
-  useEffect(() => {
-    if (tokenVerified == null) {
       navigate("/");
     }
   }, [tokenVerified]);

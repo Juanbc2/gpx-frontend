@@ -20,7 +20,6 @@ const Stages = () => {
   }, [location]);
 
   const tokenVerified = localStorage.getItem("token");
-
   useEffect(() => {
     if (tokenVerified == null) {
       notify("error", "No tiene permisos para acceder a esta página");

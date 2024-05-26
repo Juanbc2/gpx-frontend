@@ -66,14 +66,14 @@ export const bulkCreateCompetitorsApi = async (events) => {
   }
 };
 
-export const updateCompetitorApi = async (event) => {
+export const updateCompetitorApi = async (competitorId, competitorData) => {
   try {
-    const response = await fetch(`${apiUrl}/competitors/${event.id}/`, {
+    const response = await fetch(`${apiUrl}/competitors/${competitorId}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(event),
+      body: JSON.stringify(competitorData),
     });
     if (!response.ok) {
       notify("error", "Error al actualizar el competidor.");
@@ -118,5 +118,3 @@ export const analyzeCompetitorGpxApi = async (gpxData) => {
     notify("error", "Error al analizar el gpx.");
   }
 };
-
-

@@ -34,3 +34,21 @@ export const createVehicleApi = async (vehicleData) => {
   }
 };
 
+export const updateVehicleApi = async (vehicleId, vehicleData) => {
+  try {
+    const response = await fetch(`${apiUrl}/vehicles/${vehicleId}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(vehicleData),
+    });
+    if (!response.ok) {
+      notify("error", "Error al actualizar el vehículo.");
+      return null;
+    }
+    return response.json();
+  } catch (error) {
+    notify("error", "Error al actualizar el vehículo.");
+  }
+};

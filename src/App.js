@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/dashboard/dashboard";
 import Stages from "./pages/stages/stages";
@@ -10,8 +10,33 @@ import Login from "./pages/login/login";
 import Competitors from "./pages/competitors/competitors";
 import Vehicles from "./pages/vehicles/vehicles";
 import Results from "./pages/results/results";
+import { verifyTokenApi } from "./services/api/auth";
 
 function App() {
+  const navigate = useNavigate();
+
+  const checkTokenExpired = async () => {
+    const token = localStorage.getItem("token");
+    if (token == null) {
+      navigate("/");
+    } else {
+      try {
+        const response = await verifyTokenApi({ token: token });
+        if (response) {
+          localStorage.removeItem("token");
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Hubo un error al verificar el token:", error);
+        navigate("/");
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkTokenExpired();
+  }, []);
+
   return (
     <div>
       <Header />

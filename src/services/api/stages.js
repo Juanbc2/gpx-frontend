@@ -61,3 +61,22 @@ export const deleteStageApi = async (id) => {
     notify("error", "Error al eliminar la etapa.");
   }
 };
+
+export const updateStageApi = async (stageId, stage) => {
+  try {
+    const response = await fetch(`${apiUrl}/stages/${stageId}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(stage),
+    });
+    if (!response.ok) {
+      notify("error", "Error al actualizar la etapa.");
+      return [];
+    }
+    return response.json();
+  } catch (error) {
+    notify("error", "Error al actualizar la etapa.");
+  }
+};

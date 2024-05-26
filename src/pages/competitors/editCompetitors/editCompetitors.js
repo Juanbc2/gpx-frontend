@@ -1,147 +1,121 @@
 import React, { useEffect, useState } from "react";
 import "./editCompetitors.css";
 import TextInput from "../../../components/inputs/textInput/textInput";
-import DateInput from "../../../components/inputs/dateInput/dateInput";
-import CheckboxSelect from "../../../components/selects/checkboxSelect/checkboxSelect";
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { useForm } from "@mantine/form";
 import { notify } from "../../../utils/toastify";
-import { createEventApi } from "../../../services/api/events";
-import { dateToInputDate } from "../../../utils/functions";
-import { getCategoriesApi } from "../../../services/api/categories";
+import {
+  createCompetitorApi,
+  getCompetitorsApi,
+  updateCompetitorApi,
+} from "../../../services/api/competitors";
+import LoadCompetitorsModal from "../../../components/modals/competitors/loadCompetitors/loadCompetitorsModal";
 import SimpleSelect from "../../../components/selects/simpleSelect/simpleSelect";
-import { getCompetitorsApi } from "../../../services/api/competitors";
 
 const EditCompetitors = () => {
-  const handleSelectedCategories = (values) => {
-    eventForm.setFieldValue(
-      "categories",
-      values.map((value) => {
-        return value.value;
-      })
-    );
-  };
-
-  const eventForm = useForm({
+  const competitorForm = useForm({
     initialValues: {
       name: "",
-      location: "",
-      startDate: dateToInputDate(new Date()),
-      endDate: dateToInputDate(new Date()),
-      details: "",
-      categories: [],
+      lastName: "",
+      number: "",
+      identification: "",
     },
   });
 
   const handleSubmit = async () => {
-    if (!eventForm.values.name) {
-      notify("warning", "Ingrese un nombre.");
-      return;
+    let readyToSubmit = true;
+    if (competitorForm.values.name === "") {
+      notify("warning", "El nombre es requerido.");
+      readyToSubmit = false;
     }
-    if (!eventForm.values.location) {
-      notify("warning", "Ingrese una localización.");
-      return;
+    if (competitorForm.values.lastName === "") {
+      notify("warning", "Los apellidos son requeridos.");
+      readyToSubmit = false;
     }
-    if (!eventForm.values.startDate) {
-      notify("warning", "Ingrese una fecha de inicio.");
-      return;
+    if (competitorForm.values.number === "") {
+      notify("warning", "El número de competidor es requerido.");
+      readyToSubmit = false;
     }
-    if (!eventForm.values.endDate) {
-      notify("warning", "Ingrese una fecha de fin.");
-      return;
+    if (competitorForm.values.identification === "") {
+      notify("warning", "La identificación es requerida.");
+      readyToSubmit = false;
     }
-    if (eventForm.values.categories.length === 0) {
-      notify("warning", "Seleccione al menos una categoría.");
-      return;
-    }
-    let eventData = {
-      name: eventForm.values.name,
-      details: eventForm.values.details,
-      location: eventForm.values.location,
-      eventStartDate: eventForm.values.startDate,
-      eventEndDate: eventForm.values.endDate,
-      categoriesIds: eventForm.values.categories,
-    };
 
-    let result = await createEventApi(eventData);
-    if (result != null) {
-      notify("success", "Evento creado correctamente.");
-      resetConstants();
-    } else {
-      notify("warning", "No se pudo crear el evento.");
+    if (readyToSubmit) {
+      let competitorData = {
+        name: competitorForm.values.name,
+        lastName: competitorForm.values.lastName,
+        number: competitorForm.values.number,
+        identification: competitorForm.values.identification,
+      };
+      let result = await updateCompetitorApi(
+        selectedCompetitor,
+        competitorData
+      );
+      if (result != null) {
+        notify("success", "Competidor creado correctamente.");
+        resetConstants();
+        await getCompetitors();
+      } else {
+        notify("warning", "No se pudo crear el competidor.");
+      }
     }
   };
 
-  const [selectedCompetitor, setSelectedCompetitor] = useState(0);
-  const [competitors, setCompetitors] = React.useState([]);
+  const resetConstants = () => {
+    setSelectedCompetitor(null);
+    competitorForm.setValues({
+      name: "",
+      lastName: "",
+      number: "",
+      identification: "",
+    });
+  };
+
+  const [selectedCompetitor, setSelectedCompetitor] = useState(null);
+  const [competitors, setCompetitors] = useState([]);
   const getCompetitors = async () => {
-    const result = await getCompetitorsApi();
+    let result = await getCompetitorsApi();
     if (result != null) {
       let competitors = result.map((competitor) => {
         return {
           value: competitor.id,
           text: `${competitor.name} ${competitor.lastName}`,
           name: competitor.name,
-          location: competitor.location,
+          lastName: competitor.lastName,
+          number: competitor.number,
+          identification: competitor.identification,
         };
       });
       setCompetitors(competitors);
-    } else notify("warning", "Error al obtener los competidores.");
+    } else {
+      notify("warning", "No se encontraron competidores.");
+    }
   };
 
   const handleSelectCompetitor = (value) => {
     setSelectedCompetitor(value);
-    console.log(value, competitors);
     let competitor = getCompetitorById(value);
-    eventForm.setValues({
+    competitorForm.setValues({
       name: competitor.name,
-      location: competitor.location,
-      startDate: dateToInputDate(new Date(competitor.startDate)),
-      endDate: dateToInputDate(new Date(competitor.endDate)),
-      details: competitor.details,
-      categories: competitor.categories.map((category) => category.id),
+      lastName: competitor.lastName,
+      number: competitor.number,
+      identification: competitor.identification,
     });
   };
 
   const getCompetitorById = (id) => {
-    return competitors.find((competitor) => competitor.id === id);
-  };
-
-  const [categories, setCategories] = React.useState([]);
-  const getCategories = async () => {
-    const result = await getCategoriesApi();
-    if (result != null) {
-      let categories = result.map((category) => {
-        return {
-          value: category.id,
-          text: category.name,
-          checked: false,
-        };
-      });
-      setCategories(categories);
-    } else notify("warning", "Error al obtener las categorías.");
+    return competitors.find((competitor) => competitor.value === parseInt(id));
   };
 
   useEffect(() => {
     getCompetitors();
-    getCategories();
   }, []);
-
-  const resetConstants = () => {
-    eventForm.setValues({
-      name: "",
-      location: "",
-      startDate: "2024-01-01",
-      endDate: "2024-12-30",
-      details: "",
-      categories: [],
-    });
-  };
 
   return (
     <div>
-      <h1 className="title">Edición de evento</h1>
-      <div className="content">
+      <h1 className="title">Edición de competidores</h1>
+      <div className="group">
         <SimpleSelect
           title="Competidor"
           defaultOptionText="Seleccione un competidor..."
@@ -152,7 +126,7 @@ const EditCompetitors = () => {
           }}
         />
       </div>
-      {selectedCompetitor != 0 && (
+      {selectedCompetitor && (
         <div>
           <div className="group">
             <div>
@@ -160,54 +134,43 @@ const EditCompetitors = () => {
                 title="Nombre"
                 placeholder="Nombre"
                 onChange={(event) => {
-                  eventForm.setFieldValue("name", event.target.value);
+                  competitorForm.setFieldValue("name", event.target.value);
                 }}
-                value={eventForm.values.name}
+                value={competitorForm.values.name}
               />
               <TextInput
-                title="Localización"
-                placeholder="Localización"
+                title="Apellidos"
+                placeholder="Apellidos"
                 onChange={(event) => {
-                  eventForm.setFieldValue("location", event.target.value);
+                  competitorForm.setFieldValue("lastName", event.target.value);
                 }}
-                value={eventForm.values.location}
-              />
-            </div>
-            <div>
-              <DateInput
-                title="Fecha Inicial"
-                onChange={(event) => {
-                  eventForm.setFieldValue("startDate", event.target.value);
-                }}
-                value={eventForm.values.startDate}
-              />
-              <DateInput
-                title="Fecha Final"
-                onChange={(event) => {
-                  eventForm.setFieldValue("endDate", event.target.value);
-                }}
-                value={eventForm.values.endDate}
+                value={competitorForm.values.lastName}
               />
             </div>
             <div>
               <TextInput
-                title="Detalles"
-                placeholder="Detalles del evento"
-                onChange={(event) =>
-                  eventForm.setFieldValue("details", event.target.value)
-                }
-                value={eventForm.values.details}
+                title="Identificación"
+                placeholder="identificación"
+                onChange={(event) => {
+                  competitorForm.setFieldValue(
+                    "identification",
+                    event.target.value
+                  );
+                }}
+                value={competitorForm.values.identification}
               />
-              <CheckboxSelect
-                title="Categoría"
-                defaultOptionText="Seleccione una(s) categoría(s)..."
-                options={categories}
-                onChange={handleSelectedCategories}
+              <TextInput
+                title="Número de competidor"
+                placeholder="Número de competidor"
+                onChange={(event) => {
+                  competitorForm.setFieldValue("number", event.target.value);
+                }}
+                value={competitorForm.values.number}
               />
             </div>
           </div>
           <div className="content">
-            <MainButton text="Editar Evento" onClick={handleSubmit} />
+            <MainButton text="Editar Competidor" onClick={handleSubmit} />
           </div>
         </div>
       )}

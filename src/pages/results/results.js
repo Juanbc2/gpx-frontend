@@ -9,6 +9,7 @@ import SimpleSelect from "../../components/selects/simpleSelect/simpleSelect";
 import MainButton from "../../components/buttons/mainButton/mainButton";
 import InfoTable from "../../components/tables/infoTable/infoTable";
 import Maps from "../../components/maps/maps";
+import { useNavigate } from "react-router-dom";
 
 const Results = () => {
   const [importedData, setImportedData] = useState(null);
@@ -130,6 +131,15 @@ const Results = () => {
     getVehicles();
     getEvents();
   }, [getEvents, getVehicles]);
+
+  const navigate = useNavigate();
+  const tokenVerified = localStorage.getItem("token");
+  useEffect(() => {
+    if (tokenVerified == null) {
+      notify("error", "No tiene permisos para acceder a esta página");
+      navigate("/");
+    }
+  }, [tokenVerified]);
 
   return (
     <div>

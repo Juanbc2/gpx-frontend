@@ -6,11 +6,7 @@ import CheckboxSelect from "../../../components/selects/checkboxSelect/checkboxS
 import MainButton from "../../../components/buttons/mainButton/mainButton";
 import { useForm } from "@mantine/form";
 import { notify } from "../../../utils/toastify";
-import {
-  createEventApi,
-  getEventsApi,
-  updateEventApi,
-} from "../../../services/api/events";
+import { getEventsApi, updateEventApi } from "../../../services/api/events";
 import { dateToInputDate } from "../../../utils/functions";
 import { getCategoriesApi } from "../../../services/api/categories";
 import SimpleSelect from "../../../components/selects/simpleSelect/simpleSelect";
@@ -68,10 +64,11 @@ const EditEvent = () => {
 
     let result = await updateEventApi(selectedEvent, eventData);
     if (result != null) {
-      notify("success", "Evento creado correctamente.");
+      notify("success", "Evento editado correctamente.");
       resetConstants();
+      await getEvents();
     } else {
-      notify("warning", "No se pudo crear el evento.");
+      notify("warning", "No se pudo editar el evento.");
     }
   };
 
@@ -203,7 +200,6 @@ const EditEvent = () => {
               <DateInput
                 title="Fecha Final"
                 onChange={(event) => {
-                  console.log(event.target.value);
                   eventForm.setFieldValue("endDate", event.target.value);
                 }}
                 value={eventForm.values.endDate}

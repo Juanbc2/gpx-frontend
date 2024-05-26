@@ -6,9 +6,7 @@ import { notify } from "../../utils/toastify";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-
   const tokenVerified = localStorage.getItem("token");
-
   useEffect(() => {
     if (tokenVerified == null) {
       notify("error", "No tiene permisos para acceder a esta página");

@@ -164,6 +164,7 @@ const ImportStages = () => {
         categoriesOptions.push({
           value: category.id,
           text: category.name,
+          checked: false,
         });
       }
       return null;
@@ -218,7 +219,6 @@ const ImportStages = () => {
           defaultOptionText="Seleccione una(s) categoría(s)..."
           options={eventCategories}
           onChange={handleSelectedCategories}
-          value={selectedCategories}
         />
       </div>
       <div className="content">

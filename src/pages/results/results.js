@@ -8,6 +8,7 @@ import { getVehiclesApi } from "../../services/api/vehicles";
 import SimpleSelect from "../../components/selects/simpleSelect/simpleSelect";
 import MainButton from "../../components/buttons/mainButton/mainButton";
 import InfoTable from "../../components/tables/infoTable/infoTable";
+import Maps from "../../components/maps/maps";
 
 const Results = () => {
   const [importedData, setImportedData] = useState(null);
@@ -33,6 +34,7 @@ const Results = () => {
       imported.penalties = JSON.parse(imported.penalties);
       imported.route = JSON.parse(imported.route);
       setImportedData(imported);
+      handleCoords(imported.route, imported.penalties);
       notify("success", "Etapa importada correctamente.");
 
       resetConstants();
@@ -44,6 +46,27 @@ const Results = () => {
   const resetConstants = () => {
     setSelectedVehicle(null);
     setSelectedStage(null);
+  };
+
+  const [coords, setCoords] = useState([]);
+  const [userCoords, setUserCoords] = useState([]);
+
+  const handleCoords = (route) => {
+    let coords = [];
+    let userCoords = [];
+    route.forEach((point) => {
+      coords.push({
+        lat: parseFloat(point["Coor (Lat)"]),
+        lng: parseFloat(point["Coor (Lon)"]),
+        radius: parseFloat(point["Radio"]),
+      });
+      userCoords.push({
+        lat: parseFloat(point["CoorUS (Lat)"]),
+        lng: parseFloat(point["CoorUS (Lon)"]),
+      });
+    });
+    setCoords(coords);
+    setUserCoords(userCoords);
   };
 
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -111,6 +134,7 @@ const Results = () => {
   return (
     <div>
       <h1 className="title">Búsqueda de Resultados</h1>
+      <div className="content"></div>
       <div className="content">
         <SimpleSelect
           title="Competidor/Vehículo"
@@ -135,69 +159,81 @@ const Results = () => {
         <MainButton text="Buscar" onClick={getResults} />
       </div>
       {importedData != null && (
-        <div className="results">
-          <h1>Información de la etapa</h1>
-          <span>
-            <b>Competidor:</b> {importedData.competitor}
-          </span>
-          <span>
-            <b>Etapa:</b> {importedData.stage}
-          </span>
-          <span>
-            <b>Tiempo sin penalización:</b> {importedData.penaltieTime}
-          </span>
-          <span>
-            <b>Tiempo total:</b> {importedData.routeTime}
-          </span>
-
-          <InfoTable
-            title="Penalizaciones"
-            columns={[
-              "wpnumber",
-              "Causa",
-              "Coor (Lat)",
-              "Coor (Lon)",
-              "CoorUS (Lat)",
-              "CoorUS (Lon)",
-              "Penalizacion",
-              "Penalizacion Total",
-              "Valor Esperado",
-              "Valor Usuario",
-            ]}
-            columnsNames={[
-              "Waypoint",
-              "Causa",
-              "Coor (Lat)",
-              "Coor (Lon)",
-              "CoorUS (Lat)",
-              "CoorUS (Lon)",
-              "Penalización",
-              "Penalización Total",
-              "Valor Esperado",
-              "Valor Usuario",
-            ]}
-            rows={importedData.penalties}
-          />
-          <InfoTable
-            title="Ruta"
-            columns={[
-              "wpnumber",
-              "Coor (Lat)",
-              "Coor (Lon)",
-              "CoorUS (Lat)",
-              "CoorUS (Lon)",
-              "Radio",
-            ]}
-            columnsNames={[
-              "Waypoint",
-              "Coor (Lat)",
-              "Coor (Lon)",
-              "CoorUS (Lat)",
-              "CoorUS (Lon)",
-              "Radio",
-            ]}
-            rows={importedData.route}
-          />
+        <div>
+          <div className="results">
+            <h1>Información de la etapa</h1>
+            <span>
+              <b>Competidor:</b> {importedData.competitor}
+            </span>
+            <span>
+              <b>Etapa:</b> {importedData.stage}
+            </span>
+            <span>
+              <b>Tiempo sin penalización:</b> {importedData.penaltieTime}
+            </span>
+            <span>
+              <b>Tiempo total:</b> {importedData.routeTime}
+            </span>
+            <InfoTable
+              title="Penalizaciones"
+              columns={[
+                "wpnumber",
+                "Causa",
+                "Coor (Lat)",
+                "Coor (Lon)",
+                "CoorUS (Lat)",
+                "CoorUS (Lon)",
+                "Penalizacion",
+                "Penalizacion Total",
+                "Valor Esperado",
+                "Valor Usuario",
+              ]}
+              columnsNames={[
+                "Waypoint",
+                "Causa",
+                "Coor (Lat)",
+                "Coor (Lon)",
+                "CoorUS (Lat)",
+                "CoorUS (Lon)",
+                "Penalización",
+                "Penalización Total",
+                "Valor Esperado",
+                "Valor Usuario",
+              ]}
+              rows={importedData.penalties}
+            />
+            <div
+              style={{
+                height: "450px",
+                width: "70%",
+                margin: "auto",
+                marginBottom: "100px",
+              }}
+            >
+              <h2>Mapa</h2>
+              <Maps coords={coords} userCoords={userCoords} />
+            </div>
+            <InfoTable
+              title="Ruta"
+              columns={[
+                "wpnumber",
+                "Coor (Lat)",
+                "Coor (Lon)",
+                "CoorUS (Lat)",
+                "CoorUS (Lon)",
+                "Radio",
+              ]}
+              columnsNames={[
+                "Waypoint",
+                "Coor (Lat)",
+                "Coor (Lon)",
+                "CoorUS (Lat)",
+                "CoorUS (Lon)",
+                "Radio",
+              ]}
+              rows={importedData.route}
+            />
+          </div>
         </div>
       )}
     </div>

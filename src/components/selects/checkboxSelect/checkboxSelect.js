@@ -14,7 +14,11 @@ const CheckboxSelect = ({
   const [checkedOptions, setCheckedOptions] = useState([]);
   useEffect(() => {
     let newCheckedOptions = options.map((option) => {
-      return { value: option.value, text: option.text, checked: false };
+      return {
+        value: option.value,
+        text: option.text,
+        checked: option.checked,
+      };
     });
     setCheckedOptions(newCheckedOptions);
   }, [options]);

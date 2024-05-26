@@ -78,6 +78,7 @@ const CreateEvent = () => {
         return {
           value: category.id,
           text: category.name,
+          checked: false,
         };
       });
       setCategories(categories);

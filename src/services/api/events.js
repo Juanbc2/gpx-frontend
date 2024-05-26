@@ -59,3 +59,22 @@ export const createEventApi = async (event) => {
     notify("error", "Error al crear el evento.");
   }
 };
+
+export const updateEventApi = async (eventId, event) => {
+  try {
+    const response = await fetch(`${apiUrl}/events/${eventId}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(event),
+    });
+    if (!response.ok) {
+      notify("error", "Error al actualizar el evento.");
+      return [];
+    }
+    return response.json();
+  } catch (error) {
+    notify("error", "Error al actualizar el evento.");
+  }
+};

@@ -48,6 +48,7 @@ const Login = () => {
     let result = await isMasterUserCreatedApi();
     if (result != null) {
       setMasterUserCreated(result);
+      if (!result) navigate("/");
     }
   };
 

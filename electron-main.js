@@ -8,7 +8,7 @@ const PORT = 3001;
 const startLocalServer = (done) => {
   localServerApp.use(express.json({ limit: "100mb" }));
   localServerApp.use(cors());
-  localServerApp.use(express.static("./build/"));
+  localServerApp.use(express.static(path.join(__dirname, "build")));
   localServerApp.listen(PORT, async () => {
     console.log("Server Started on PORT ", PORT);
     done();
@@ -20,9 +20,6 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    },
   });
 
   mainWindow.maximize();
@@ -38,6 +35,8 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+if (require("electron-squirrel-startup")) app.quit();
+
 app.whenReady().then(() => {
   startLocalServer(createWindow);
 

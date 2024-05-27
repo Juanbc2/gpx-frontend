@@ -34,7 +34,8 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
   },
   "eslintConfig": {
     "extends": [
@@ -64,5 +65,10 @@
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "electron": "^29.4.1"
-  }
+  },
+  "files": [
+    "preload.js",
+    "electron-main.js",
+    "build/"
+  ]
 }

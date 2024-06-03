@@ -77,10 +77,10 @@ const Maps = ({ coords, userCoords }) => {
     // Dibujar un círculo alrededor de cada punto
     coords.forEach((location) => {
       new maps.Circle({
-        strokeColor: "#FF0000",
+        strokeColor: "#eeff00",
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor: "#FF0000",
+        fillColor: "#eeff00",
         fillOpacity: 0.35,
         map,
         center: location,

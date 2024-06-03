@@ -12,6 +12,7 @@ module.exports = {
       config: {
         description: "Darien Rally Analyzer",
         authors: "Juan Guillermo Buitrago Calle",
+        setupIcon: "./public/favicon.ico",
       },
     },
     {

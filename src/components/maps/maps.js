@@ -19,28 +19,6 @@ const AnyReactComponent = ({ text }) => {
   return <div style={greatPlaceStyle}>{text}</div>;
 };
 
-// function convertDMSToDD(degrees, minutes, direction) {
-//   let dd = Number(degrees) + minutes / 60;
-
-//   if (direction === "S" || direction === "W") {
-//     dd = dd * -1;
-//   }
-
-//   return dd;
-// }
-
-// function convertCoordinate(coordinate) {
-//   const [latDMS, lngDMS] = coordinate.split("\t");
-
-//   const [latD, latM, latDir] = latDMS.match(/(\d+)°(\d+\.\d+),([NS])/).slice(1);
-//   const [lngD, lngM, lngDir] = lngDMS.match(/(\d+)°(\d+\.\d+),([EW])/).slice(1);
-
-//   const lat = convertDMSToDD(Number(latD), Number(latM), latDir);
-//   const lng = convertDMSToDD(Number(lngD), Number(lngM), lngDir);
-
-//   return { lat, lng };
-// }
-
 const Maps = ({ coords, userCoords }) => {
   const [mapState, setMapState] = React.useState({
     center: coords[0],

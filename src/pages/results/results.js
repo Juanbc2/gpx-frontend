@@ -14,6 +14,9 @@ import { useNavigate } from "react-router-dom";
 const Results = () => {
   const [importedData, setImportedData] = useState(null);
   const getResults = async () => {
+    setImportedData(null);
+    setCoords([]);
+    setUserCoords([]);
     if (!selectedVehicle) {
       notify("warning", "Seleccione un vehículo.");
       return;
@@ -221,7 +224,9 @@ const Results = () => {
               }}
             >
               <h2>Mapa</h2>
-              <Maps coords={coords} userCoords={userCoords} />
+              {coords.length > 0 && userCoords.length > 0 && (
+                <Maps coords={coords} userCoords={userCoords} />
+              )}
             </div>
             <InfoTable
               title="Ruta"
